@@ -1,4 +1,3 @@
 package com.sylvan.jasper.interview.program;
 
-public class Prime {
-}
+public class Prime {}
