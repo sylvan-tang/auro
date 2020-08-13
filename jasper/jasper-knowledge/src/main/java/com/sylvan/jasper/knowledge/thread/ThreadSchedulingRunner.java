@@ -1,7 +1,7 @@
 package com.sylvan.jasper.knowledge.thread;
 
 /**
- * @author chen.suna
+ * @author sylvan
  * @date 2020/7/29
  */
 public class ThreadSchedulingRunner {

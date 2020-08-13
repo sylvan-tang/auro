@@ -3,7 +3,7 @@ package com.sylvan.jasper.knowledge.thread;
 import lombok.AllArgsConstructor;
 
 /**
- * @author chen.suna
+ * @author sylvan
  * @date 2020/7/29
  */
 @AllArgsConstructor
