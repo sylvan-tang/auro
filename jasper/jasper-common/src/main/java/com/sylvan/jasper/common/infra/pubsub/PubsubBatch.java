@@ -6,13 +6,11 @@ import io.reactivex.rxjava3.subjects.PublishSubject;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author sylvan
  * @date 2020/7/15
  */
-@Slf4j
 public abstract class PubsubBatch<T, U extends Collection<? super T>> {
   private final PublishSubject<T> pipeline;
 

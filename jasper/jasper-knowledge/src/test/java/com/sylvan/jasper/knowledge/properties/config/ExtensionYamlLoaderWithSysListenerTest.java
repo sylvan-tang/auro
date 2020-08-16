@@ -9,12 +9,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestExecutionListeners(value = TestEnvListenerYmlLoader.class)
+@TestExecutionListeners(value = TestSysListenerYmlLoader.class)
 public class ExtensionYamlLoaderWithSysListenerTest {
 
   @Test
   public void testExtensionYamlLoaderForSystemProperties() {
-    Assert.assertEquals("true", System.getProperty("env.listener.testSwitch"));
-    Assert.assertEquals("you", System.getProperty("env.listener.testString"));
+    Assert.assertEquals("true", System.getProperty("sys.listener.testSwitch"));
+    Assert.assertEquals("you", System.getProperty("sys.listener.testString"));
+    //    Assert.assertNull(System.getProperty("env.listener.testSwitch"));
+    //    Assert.assertNull(System.getProperty("env.listener.testString"));
   }
 }
