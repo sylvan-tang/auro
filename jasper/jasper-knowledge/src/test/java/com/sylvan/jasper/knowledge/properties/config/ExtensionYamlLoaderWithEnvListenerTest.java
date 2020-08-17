@@ -16,7 +16,7 @@ public class ExtensionYamlLoaderWithEnvListenerTest {
   public void testExtensionYamlLoaderForSystemProperties() {
     Assert.assertEquals("true", System.getProperty("env.listener.testSwitch"));
     Assert.assertEquals("you", System.getProperty("env.listener.testString"));
-    //    Assert.assertNull(System.getProperty("sys.listener.testSwitch"));
-    //    Assert.assertNull(System.getProperty("sys.listener.testString"));
+    Assert.assertNull(System.getProperty("sys.listener.testSwitch"));
+    Assert.assertNull(System.getProperty("sys.listener.testString"));
   }
 }
