@@ -18,8 +18,9 @@ public class YamlLoaderUtils {
   public static String pathPattern = "classpath*:%s/*.yml";
 
   /** 只在系统没有相同参数时才设置对应的系统参数 */
-  public static void loadYmlToSystem(String sourcesFolder) {
+  public static Map<String, String> loadYmlToSystem(String sourcesFolder) {
     try {
+      Map<String, String> properties = new HashMap<>();
       loadYamlByPattern(sourcesFolder)
           .forEach(
               propertySource -> {
@@ -33,14 +34,17 @@ public class YamlLoaderUtils {
                                 "%s from system property is blank, set to %s",
                                 propertyName, defaultPropertyValue));
                         System.setProperty(propertyName, defaultPropertyValue.toString());
+                        properties.put(propertyName, defaultPropertyValue.toString());
                       }
                     });
               });
+      return properties;
     } catch (IOException e) {
       System.out.println(
           String.format("Failed to load additional yaml file with pattern %s:", sourcesFolder));
       e.printStackTrace();
     }
+    return Collections.emptyMap();
   }
 
   public static List<PropertySource<?>> loadYamlByPattern(String sourcesFolder) throws IOException {
