@@ -5,6 +5,7 @@
 * 运行 bin/init.sh
 
 ### TODO LIST ###
+* JsonUtils 添加测试用例
 * 添加 graph cache 的实现接口和压测 *
 * 完善 properties config.md 添加 test case *
 * 完善 rxjava 的使用说明，添加 test case *
