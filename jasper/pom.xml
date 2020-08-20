@@ -62,12 +62,19 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <properties>
         <spring.version>2.3.2.RELEASE</spring.version>
         <jackson.version>2.11.2</jackson.version>
+        <joda.version>2.3</joda.version>
     </properties>
 
     <build>
