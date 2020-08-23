@@ -7,9 +7,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -25,11 +22,8 @@ public class JsonUtils {
           .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
           .findAndRegisterModules();
 
-  private JsonUtils() {}
-
   public static <T> String marshal(T target) throws IOException {
     Preconditions.checkNotNull(target);
-
     return OBJECT_MAPPER.writeValueAsString(target);
   }
 
@@ -70,47 +64,5 @@ public class JsonUtils {
   public static Stream<JsonNode> getObjectValueStream(JsonNode src) {
     Preconditions.checkState(src.isContainerNode());
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(src.elements(), 0), false);
-  }
-
-  /** Deprecated, use {@code marshal} */
-  @Deprecated(forRemoval = true)
-  public static Optional<String> toJSON(Object object) {
-    try {
-      return Optional.of(marshal(object));
-    } catch (IOException e) {
-      log.error("toJson error, object: {}", object, e);
-    }
-
-    return Optional.empty();
-  }
-
-  /** Deprecated, use {@code unmarshal} */
-  @Deprecated(forRemoval = true)
-  public static <T> Optional<T> toObject(String jsonString, Class<T> clazz) {
-    Preconditions.checkNotNull(jsonString);
-
-    try {
-      return Optional.of(OBJECT_MAPPER.readValue(jsonString, clazz));
-    } catch (Exception e) {
-      log.error("toObject error, jsonString: {}", jsonString, e);
-    }
-
-    return Optional.empty();
-  }
-
-  /** Deprecated, use {@code unmarshal} */
-  @Deprecated(forRemoval = true)
-  public static <T> List<T> toList(String jsonString, Class<T> clazz) {
-
-    Preconditions.checkNotNull(jsonString);
-
-    try {
-      return OBJECT_MAPPER.readValue(
-          jsonString, OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, clazz));
-    } catch (Exception e) {
-      log.error("toList error, jsonString: {}", jsonString, e);
-    }
-
-    return Collections.emptyList();
   }
 }
