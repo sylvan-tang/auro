@@ -50,7 +50,7 @@ public class CalculatorTest {
   public void testDiv() throws CalculationException {
     Long result = 0L;
     Assert.assertEquals(result, Calculator.DIV.operation(1L, 2L));
-    result = 1L;
+    result = 2L;
     Assert.assertEquals(result, Calculator.DIV.operation(2L, 1L));
   }
 }
