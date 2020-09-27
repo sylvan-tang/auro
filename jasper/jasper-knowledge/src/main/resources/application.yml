@@ -1,0 +1,20 @@
+# 配置端口
+server:
+  port: 8080
+
+---
+# 开发配置
+spring:
+  profiles: dev
+
+greeting:
+  name: sylvan
+
+
+---
+# 生产配置
+spring:
+  profiles: prod
+
+greeting:
+  name: sisi

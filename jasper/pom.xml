@@ -98,6 +98,7 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
