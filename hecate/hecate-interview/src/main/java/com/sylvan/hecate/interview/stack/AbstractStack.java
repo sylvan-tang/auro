@@ -1,6 +1,5 @@
 package com.sylvan.hecate.interview.stack;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
