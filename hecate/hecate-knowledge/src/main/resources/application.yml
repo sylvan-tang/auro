@@ -2,6 +2,9 @@
 server:
   port: 8080
 
+greeting:
+  name: sisi
+
 ---
 # 开发配置
 spring:

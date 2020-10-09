@@ -1,1 +1,1 @@
-org.springframework.context.ApplicationListener=ExtensionYamlLoader
+org.springframework.context.ApplicationListener=com.sylvan.hecate.knowledge.properties.config.ExtensionYamlLoader

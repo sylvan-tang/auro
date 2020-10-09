@@ -1,11 +1,13 @@
 package com.sylvan.hecate.knowledge;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+// import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+// @SpringBootApplication
 public class Bootstrap {
   public static void main(String[] args) {
-    SpringApplication.run(Bootstrap.class);
+    SpringApplication springApplication = new SpringApplication(Bootstrap.class);
+    System.out.println(Bootstrap.class.getName());
+    springApplication.run(args);
   }
 }
