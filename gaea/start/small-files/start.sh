@@ -15,6 +15,7 @@ cd "$gaea_path"
 
 sbt gaeaSmallFiles:assembly
 
+# shellcheck disable=SC2034
 folder_path="/tmp/smalls/"
 log_path="/tmp/smalls.log"
 output_path="./smalls.log"
