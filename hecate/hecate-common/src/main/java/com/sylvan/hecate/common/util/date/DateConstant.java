@@ -8,7 +8,7 @@ import com.sylvan.hecate.common.util.date.impl.TimestampDateFormatter;
  */
 public class DateConstant {
 
-  /** 对系统时间戳进行格式化 */
-  public static final TimestampDateFormatter TIMESTAMP_DATE_FORMATTER =
-      new TimestampDateFormatter();
+    /** 对系统时间戳进行格式化 */
+    public static final TimestampDateFormatter TIMESTAMP_DATE_FORMATTER =
+            new TimestampDateFormatter();
 }

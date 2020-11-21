@@ -1,9 +1,10 @@
 package com.sylvan.hecate.knowledge.properties.config;
 
-import java.io.IOException;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
+
+import java.io.IOException;
 
 /**
  * 使用 ExtensionYamlLoader 可以在 application 启动前将指定目录下的 yml 文件中的配置读到 ConfigurableEnvironment 中或 System
@@ -16,41 +17,45 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @date 2020/8/7
  */
 public class ExtensionYamlLoader
-    implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+        implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-  /** 存放需要加载到 ConfigurableEnvironment 中的 yml 文件 */
-  private final String environmentPropertySources;
+    /** 存放需要加载到 ConfigurableEnvironment 中的 yml 文件 */
+    private final String environmentPropertySources;
 
-  /** 存放需要加载到 System 配置中的 yml 文件 */
-  private final String systemPropertySources;
+    /** 存放需要加载到 System 配置中的 yml 文件 */
+    private final String systemPropertySources;
 
-  public ExtensionYamlLoader() {
-    this.environmentPropertySources = "environment-property-sources";
-    this.systemPropertySources = "system-property-sources";
-  }
-
-  public ExtensionYamlLoader(String environmentPropertySources, String systemPropertySources) {
-    this.environmentPropertySources = environmentPropertySources;
-    this.systemPropertySources = systemPropertySources;
-  }
-
-  @Override
-  public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-    ConfigurableEnvironment environment = event.getEnvironment();
-
-    try {
-      System.out.println(String.format("Loading yaml from folder: %s", environmentPropertySources));
-      YamlLoaderUtils.loadYamlByPattern(environmentPropertySources)
-          .forEach(propertySource -> environment.getPropertySources().addLast(propertySource));
-
-      YamlLoaderUtils.loadYmlToSystem(systemPropertySources);
-      System.out.println("End of ExtensionYamlLoader.");
-    } catch (IOException e) {
-      System.out.println(
-          String.format(
-              "Failed to load additional yaml file with pattern %s:", environmentPropertySources));
-      e.printStackTrace();
-      System.exit(1);
+    public ExtensionYamlLoader() {
+        this.environmentPropertySources = "environment-property-sources";
+        this.systemPropertySources = "system-property-sources";
     }
-  }
+
+    public ExtensionYamlLoader(String environmentPropertySources, String systemPropertySources) {
+        this.environmentPropertySources = environmentPropertySources;
+        this.systemPropertySources = systemPropertySources;
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        ConfigurableEnvironment environment = event.getEnvironment();
+
+        try {
+            System.out.println(
+                    String.format("Loading yaml from folder: %s", environmentPropertySources));
+            YamlLoaderUtils.loadYamlByPattern(environmentPropertySources)
+                    .forEach(
+                            propertySource ->
+                                    environment.getPropertySources().addLast(propertySource));
+
+            YamlLoaderUtils.loadYmlToSystem(systemPropertySources);
+            System.out.println("End of ExtensionYamlLoader.");
+        } catch (IOException e) {
+            System.out.println(
+                    String.format(
+                            "Failed to load additional yaml file with pattern %s:",
+                            environmentPropertySources));
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 }

@@ -12,11 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @TestExecutionListeners(value = TestSysListenerYmlLoader.class)
 public class ExtensionYamlLoaderWithSysListenerTest {
 
-  @Test
-  public void testExtensionYamlLoaderForSystemProperties() {
-    Assert.assertEquals("true", System.getProperty("sys.listener.testSwitch"));
-    Assert.assertEquals("you", System.getProperty("sys.listener.testString"));
-    Assert.assertNull(System.getProperty("env.listener.testSwitch"));
-    Assert.assertNull(System.getProperty("env.listener.testString"));
-  }
+    @Test
+    public void testExtensionYamlLoaderForSystemProperties() {
+        Assert.assertEquals("true", System.getProperty("sys.listener.testSwitch"));
+        Assert.assertEquals("you", System.getProperty("sys.listener.testString"));
+        Assert.assertNull(System.getProperty("env.listener.testSwitch"));
+        Assert.assertNull(System.getProperty("env.listener.testString"));
+    }
 }

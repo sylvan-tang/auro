@@ -1,8 +1,10 @@
 package com.sylvan.hecate.common.util.date;
 
-import java.util.Calendar;
 import lombok.Getter;
+
 import org.joda.time.DateTimeZone;
+
+import java.util.Calendar;
 
 /**
  * @author sylvan
@@ -10,15 +12,15 @@ import org.joda.time.DateTimeZone;
  */
 @Getter
 public enum TimeZoneEnum {
-  /** 上海作为默认时区 */
-  SHANGHAI("Asia/Shanghai", Calendar.MONDAY),
-  UTC("UTC", Calendar.SUNDAY);
+    /** 上海作为默认时区 */
+    SHANGHAI("Asia/Shanghai", Calendar.MONDAY),
+    UTC("UTC", Calendar.SUNDAY);
 
-  private final int firstDayOfWeek;
-  private final DateTimeZone dateTimeZone;
+    private final int firstDayOfWeek;
+    private final DateTimeZone dateTimeZone;
 
-  TimeZoneEnum(String timezone, int firstDayOfWeek) {
-    this.firstDayOfWeek = firstDayOfWeek;
-    this.dateTimeZone = DateTimeZone.forID(timezone);
-  }
+    TimeZoneEnum(String timezone, int firstDayOfWeek) {
+        this.firstDayOfWeek = firstDayOfWeek;
+        this.dateTimeZone = DateTimeZone.forID(timezone);
+    }
 }

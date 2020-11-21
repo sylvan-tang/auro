@@ -1,8 +1,9 @@
 package com.sylvan.hecate.common.util.date;
 
-import java.time.Duration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.time.Duration;
 
 /**
  * @author sylvan
@@ -11,13 +12,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum DateGranularityEnum {
-  /** 一天的时间粒度 */
-  ONE_DAY(Duration.ofDays(1), DateFormatEnum.DAY_OF_YEAR_IN_COMPACT),
-  /** 一周的时间粒度 */
-  ONE_WEEK(Duration.ofDays(7), DateFormatEnum.WEEK_OF_YEAR_IN_COMPACT),
-  /** 一毫秒的时间粒度 */
-  ONE_MILLIS(Duration.ofMillis(1), DateFormatEnum.DATE_WITH_TIME_ZONE);
+    /** 一天的时间粒度 */
+    ONE_DAY(Duration.ofDays(1), DateFormatEnum.DAY_OF_YEAR_IN_COMPACT),
+    /** 一周的时间粒度 */
+    ONE_WEEK(Duration.ofDays(7), DateFormatEnum.WEEK_OF_YEAR_IN_COMPACT),
+    /** 一毫秒的时间粒度 */
+    ONE_MILLIS(Duration.ofMillis(1), DateFormatEnum.DATE_WITH_TIME_ZONE);
 
-  private final Duration duration;
-  private final DateFormatEnum dateFormatEnum;
+    private final Duration duration;
+    private final DateFormatEnum dateFormatEnum;
 }
