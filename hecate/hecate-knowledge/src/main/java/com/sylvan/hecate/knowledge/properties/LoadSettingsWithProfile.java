@@ -6,11 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LoadSettingsWithProfile implements InitializingBean {
-    @Value("${greeting.name}")
-    private String greetingName;
+  @Value("${greeting.name}")
+  private String greetingName;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("greetingName: " + greetingName);
-    }
+  @Value("${greet.word}")
+  private String greetingWord;
+
+  @Override
+  public void afterPropertiesSet() {
+    System.out.printf("%s! %s!%n", greetingWord, greetingName);
+  }
 }

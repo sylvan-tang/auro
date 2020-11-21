@@ -1,9 +1,12 @@
+greet:
+  word: 嗨
+
 # 配置端口
 server:
   port: 8080
 
 greeting:
-  name: sisi
+  name: ss
 
 ---
 # 开发配置
