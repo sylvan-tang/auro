@@ -1,6 +1,15 @@
 greet:
   word: 嗨
 
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: shutdown
+
 # 配置端口
 server:
   port: 8080
