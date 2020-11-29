@@ -3,6 +3,7 @@
 
 ### 系统初始化 ###
 * 运行 bin/init.sh
+* 运行命令 `docker-compose -f docker/docker-compose.yml up -d`，启动系统环境
 
 ### TODO LIST ###
 * JsonUtils 添加测试用例
