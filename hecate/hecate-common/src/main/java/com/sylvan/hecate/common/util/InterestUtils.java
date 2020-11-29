@@ -101,4 +101,8 @@ public class InterestUtils {
   public static double convertToRate(double rate, Duration duration) {
     return computeBase(duration.toDays(), 1D + rate) - 1D;
   }
+
+  public static void main(String[] args) {
+    System.out.println(convertRate(computeRate(2732.58, 500, 30, 5), Duration.ofDays(365)));
+  }
 }

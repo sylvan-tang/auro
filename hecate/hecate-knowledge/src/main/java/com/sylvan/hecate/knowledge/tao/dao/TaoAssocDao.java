@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** 参考：https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf */
+/**
+ * 参考：https://www.usenix.org/system/files/conference/atc13/atc13-bronson.pdf
+ *
+ * @author sylvan
+ */
 public interface TaoAssocDao {
   /**
    * 添加关系

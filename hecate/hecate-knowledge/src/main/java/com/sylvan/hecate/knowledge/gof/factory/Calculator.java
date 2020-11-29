@@ -2,6 +2,7 @@ package com.sylvan.hecate.knowledge.gof.factory;
 
 import java.util.Objects;
 
+/** @author sylvan */
 public enum Calculator implements LongCalculation {
   ADD {
     @Override

@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+/** @author sylvan */
 public class SmallFiles {
   private final Path dirPath;
   private final int filesNum;
@@ -127,7 +128,7 @@ public class SmallFiles {
     System.out.printf(" %s |", (System.currentTimeMillis() - start));
   }
 
-  public static void main(String[] args) {
+  public static void testSmallFilesDeleted() {
     System.out.println("| 文件个数 | 并发数 | 创建时间 | rm 时间 | rsync 时间 | walk delete 时间 |");
     System.out.println("| ---- | ---- | ---- | ---- | ---- | ---- |");
     for (List<Integer> integers :
@@ -177,5 +178,15 @@ public class SmallFiles {
         e.printStackTrace();
       }
     }
+  }
+
+  public static void main(String[] args) {
+    // testSmallFilesDeleted();
+    //     SmallFiles smallFiles = new SmallFiles("/tmp/smalls/", 2000000, 20);
+    //      try {
+    //          smallFiles.generateSmallFiles(true);
+    //      } catch (ExecutionException | InterruptedException | IOException e) {
+    //          e.printStackTrace();
+    //      }
   }
 }
