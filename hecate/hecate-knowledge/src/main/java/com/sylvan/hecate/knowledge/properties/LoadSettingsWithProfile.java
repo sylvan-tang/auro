@@ -13,8 +13,13 @@ public class LoadSettingsWithProfile implements InitializingBean {
   @Value("${greet.word}")
   private String greetingWord;
 
+  @Value("${project.build.directory:null}")
+  private String buildDirectory;
+
   @Override
   public void afterPropertiesSet() {
+    System.out.println("Present Project Directory : " + System.getProperty("user.dir"));
+    System.out.println(buildDirectory);
     System.out.printf("%s! %s!%n", greetingWord, greetingName);
   }
 }
