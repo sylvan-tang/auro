@@ -12,8 +12,8 @@
 # 代码提交原则
 * 每一个新的主题，新建一个新的 module 进行撰写，module 名 auro-{主题名}
 * demo 的 package：com.sylvan.auro.{主题名}
-* auro-{主题名} 目录下放分享稿：README.md
-* auro-{主题名} 目录下新建 pictures 目录存放 README.md 需要用到的图片
+* auro-{主题名} 目录下新建 docs 目录，可以存放分享文档，如：why-not-use-custom-tokenizer.md
+* auro-{主题名}/docs 目录下新建 pictures 目录存放分享文档需要用到的图片
 
 # 系统初始化与代码格式化
 * 运行 bin/auto-hooks.sh

@@ -117,11 +117,11 @@ lazy val root = (project in file("."))
     gaeaSmallFiles,
     // 为了能在编译的时候触发测试，所有子项目也必须添加到 aggregate 中
     gaeaApp,
-    gaeaCore,
-    gaeaInfrastructure
+    gaeaInfrastructure,
+    auroEs
   ).settings(commonSettings: _*)
   .settings(
-    name := "gaea-root"
+    name := "auro-root"
   )
 
 lazy val gaeaSmallFiles = (project in file("./start/small-files"))
@@ -135,17 +135,9 @@ lazy val gaeaSmallFiles = (project in file("./start/small-files"))
 // 应用层
 lazy val gaeaApp = (project in file("./gaea-app"))
   .settings(commonSettings: _*)
-  .dependsOn(gaeaInfrastructure, gaeaCore)
+  .dependsOn(gaeaInfrastructure)
   .settings(
     name := "gaea-app"
-  )
-
-// 核心层 ：model
-val gaeaCore = (project in file("./gaea-core"))
-  .dependsOn(gaeaInfrastructure)
-  .settings(commonSettings: _*)
-  .settings(
-    name := "gaea-core"
   )
 
 // 架构层: rpc
@@ -155,3 +147,9 @@ lazy val gaeaInfrastructure = (project in file("./gaea-infrastructure"))
     name := "gaea-infrastructure"
   )
 
+// elasticsearch 分享：auro-es
+lazy val auroEs = (project in file("./auro-es"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-es"
+  )
