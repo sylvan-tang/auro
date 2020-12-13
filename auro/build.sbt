@@ -118,7 +118,12 @@ lazy val root = (project in file("."))
     // 为了能在编译的时候触发测试，所有子项目也必须添加到 aggregate 中
     gaeaApp,
     gaeaInfrastructure,
-    auroEs
+    auroCompiler,
+    auroCooperation,
+    auroDocker,
+    auroEs,
+    auroFinancial,
+    auroRxJava
   ).settings(commonSettings: _*)
   .settings(
     name := "auro-root"
@@ -147,9 +152,45 @@ lazy val gaeaInfrastructure = (project in file("./gaea-infrastructure"))
     name := "gaea-infrastructure"
   )
 
-// elasticsearch 分享：auro-es
+
+// 编译器分享
+lazy val auroCompiler = (project in file("./auro-compiler"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-compiler"
+  )
+
+// 团队合作理论分享
+lazy val auroCooperation = (project in file("./auro-cooperation"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-cooperation"
+  )
+
+// docker 分享
+lazy val auroDocker = (project in file("./auro-docker"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-docker"
+  )
+
+// elasticsearch 分享
 lazy val auroEs = (project in file("./auro-es"))
   .settings(commonSettings: _*)
   .settings(
     name := "auro-es"
+  )
+
+// 金融分享
+lazy val auroFinancial = (project in file("./auro-financial"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-financial"
+  )
+
+// rxjava 分享
+lazy val auroRxJava = (project in file("./auro-rxjava"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "auro-rxjava"
   )
