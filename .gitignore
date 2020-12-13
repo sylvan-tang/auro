@@ -6,3 +6,4 @@ target/
 log/
 *.log
 docker/hadoop/
+auro/docker/hadoop/
