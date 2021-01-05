@@ -10,7 +10,7 @@
     <modules>
         <module>hecate-interview</module>
         <module>hecate-common</module>
-        <module>hecate-knowledge</module>
+        <module>hecate-tool</module>
     </modules>
 
     <repositories>

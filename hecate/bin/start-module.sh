@@ -5,7 +5,7 @@ module=""
 profile=""
 
 function echo_help() {
-  echo "Run with example: sh bin/start-module.sh -Pdev --module=hecate-knowledge"
+  echo "Run with example: sh bin/start-module.sh -Pdev --module=hecate-tool"
 }
 
 while [[ "$#" -gt 0 ]]; do

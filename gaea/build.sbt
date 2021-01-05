@@ -116,42 +116,70 @@ lazy val root = (project in file("."))
     // 给启动程序打包
     gaeaSmallFiles,
     // 为了能在编译的时候触发测试，所有子项目也必须添加到 aggregate 中
-    gaeaApp,
-    gaeaCore,
-    gaeaInfrastructure
+    gaeaBook,
+    gaeaCareer,
+    gaeaCommon,
+    gaeaFinancial,
+    gaeaInfrastructure,
+    gaeaTool
   ).settings(commonSettings: _*)
   .settings(
     name := "gaea-root"
   )
 
+// 具体的启动类
 lazy val gaeaSmallFiles = (project in file("./start/small-files"))
   .settings(commonSettings: _*)
-  .dependsOn(gaeaApp)
+  .dependsOn(gaeaTool)
   .settings(
     name := "gaea-small-files"
   )
 
 
-// 应用层
-lazy val gaeaApp = (project in file("./gaea-app"))
-  .settings(commonSettings: _*)
-  .dependsOn(gaeaInfrastructure, gaeaCore)
-  .settings(
-    name := "gaea-app"
-  )
-
-// 核心层 ：model
-val gaeaCore = (project in file("./gaea-core"))
-  .dependsOn(gaeaInfrastructure)
+// 书籍相关分享
+lazy val gaeaBook = (project in file("./gaea-book"))
   .settings(commonSettings: _*)
   .settings(
-    name := "gaea-core"
+    name := "gaea-book"
   )
 
-// 架构层: rpc
+// 职业生涯相关分享
+lazy val gaeaCareer = (project in file("./gaea-career"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "gaea-career"
+  )
+
+// 基础语法分享
+lazy val gaeaCommon = (project in file("./gaea-common"))
+  .settings(commonSettings: _*)
+  .settings(
+    name := "gaea-common"
+  )
+
+// 金融分享
+lazy val gaeaFinancial = (project in file("./gaea-financial"))
+  .settings(commonSettings: _*)
+  .dependsOn(gaeaCommon)
+  .settings(
+    name := "gaea-financial"
+  )
+
+// 公共第三方框架
 lazy val gaeaInfrastructure = (project in file("./gaea-infrastructure"))
   .settings(commonSettings: _*)
+  .dependsOn(gaeaCommon)
   .settings(
     name := "gaea-infrastructure"
+  )
+
+// 第三方框架分享
+lazy val gaeaTool = (project in file("./gaea-tool"))
+  .settings(commonSettings: _*)
+  .settings(libraryDependencies ++= sparkSeq ++ elasticSeq)
+  .dependsOn(gaeaCommon)
+  .dependsOn(gaeaInfrastructure)
+  .settings(
+    name := "gaea-tool"
   )
 
