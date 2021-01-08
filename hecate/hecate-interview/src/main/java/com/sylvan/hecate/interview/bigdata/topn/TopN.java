@@ -95,9 +95,7 @@ public class TopN {
                     () ->
                         Stream.concat(m1.join().entrySet().stream(), m2.join().entrySet().stream())
                             .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                            .collect(Collectors.toList())
-                            .subList(0, n)
-                            .stream()
+                            .collect(Collectors.toList()).subList(0, n).stream()
                             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)),
                     forkJoinPool))
         .join();
