@@ -1,6 +1,6 @@
 package com.sylvan.hecate.interview.program;
 
-import com.sylvan.hecate.interview.stack.AbstractStack;
+import com.sylvan.hecate.common.stack.AbstractStack;
 import java.util.List;
 import java.util.Optional;
 

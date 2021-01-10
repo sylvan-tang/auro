@@ -1,4 +1,4 @@
-package com.sylvan.hecate.interview.stack;
+package com.sylvan.hecate.common.stack;
 
 import java.util.List;
 import java.util.Optional;

@@ -36,5 +36,5 @@ if __name__ == '__main__':
     next_red = [red for red, _ in next_red]
     next_blue = sorted(blue_freq.items(), key=lambda x: x[1], reverse=True)[:10]
     next_blue = [blue for blue, _ in next_blue]
-    print next_red
-    print next_blue
+    print(next_red)
+    print(next_blue)
