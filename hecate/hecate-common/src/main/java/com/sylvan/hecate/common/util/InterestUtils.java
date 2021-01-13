@@ -106,5 +106,7 @@ public class InterestUtils {
     System.out.println(convertRate(computeRate(2732.58, 500, 30, 5), Duration.ofDays(365)));
 
     System.out.println(convertRate(computeRate(2973.73, 300, 7, 9), Duration.ofDays(365)));
+
+    System.out.println(computeTotal(0.08, 6110, 1, 30));
   }
 }
