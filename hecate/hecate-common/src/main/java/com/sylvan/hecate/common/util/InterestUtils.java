@@ -102,11 +102,27 @@ public class InterestUtils {
     return computeBase(duration.toDays(), 1D + rate) - 1D;
   }
 
+  public static double computeTotal(double startAmount, double rate, int times) {
+    return startAmount * Math.pow(rate, times);
+  }
+
+  public static double computeRate(double startAmount, double endAmount, int times) {
+    return Math.pow(10, Math.log10(endAmount / startAmount) / times);
+  }
+
   public static void main(String[] args) {
     System.out.println(convertRate(computeRate(2732.58, 500, 30, 5), Duration.ofDays(365)));
 
     System.out.println(convertRate(computeRate(2973.73, 300, 7, 9), Duration.ofDays(365)));
 
     System.out.println(computeTotal(0.08, 6110, 1, 30));
+
+    double startAmount = 0.06;
+    double endAmount = 10;
+    int times = 8;
+    System.out.println(computeRate(startAmount, endAmount, times));
+    for (int i = 0; i < times + 1; i++) {
+      System.out.println(computeTotal(startAmount, computeRate(startAmount, endAmount, times), i));
+    }
   }
 }
