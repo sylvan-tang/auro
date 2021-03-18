@@ -6,3 +6,6 @@ target/
 log/
 *.log
 docker/hadoop/
+
+*/.scannerwork/
+.scannerwork/
