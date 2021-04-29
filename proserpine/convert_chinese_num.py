@@ -19,7 +19,6 @@ convert_dict = {
 
 }
 
-
 def convert_num(n):
   # 定义一个栈来保存数字
   stack = []
