@@ -2,4 +2,4 @@
 import sys
 #str = raw_input()
 #print str
-print 'Hello,World!'
+print('Hello,World!')

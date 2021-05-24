@@ -7,7 +7,7 @@ class Solution(object):
         in_block = False
         p = 0
         while p < len(source):
-            print p, source[p], in_block
+            print(p, source[p], in_block)
             if not source[p]:
                 source.pop(p)
                 continue
@@ -23,7 +23,7 @@ class Solution(object):
                 continue
             i, j, k = source[p].find("/*"), source[p].rfind("*/"), source[p].find("//")
 
-            print p, source[p], in_block, i, j, k
+            print(p, source[p], in_block, i, j, k)
             if i != -1 and (k > i or k == -1):
                 if j == -1:
                     source[p] = source[p][:i]

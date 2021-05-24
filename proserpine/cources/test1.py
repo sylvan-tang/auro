@@ -77,7 +77,7 @@ class MaxFrequencyWords(object):
                 word = line.strip()
                 self.add_word_to_tree(word, root)
                 line = f.readline()
-        print "open file", time.time() - start
+        print("open file", time.time() - start)
         output = []
         for i in range(count):
             output.append(('', 0))
@@ -100,5 +100,5 @@ if __name__ == "__main__":
     m = MaxFrequencyWords()
     start = time.time()
     # m.generate_words(100000000, '/Users/sylvan/codes/test.log')
-    print m.max_frequency(10, '/Users/sylvan/codes/test.log')
-    print time.time() - start
+    print(m.max_frequency(10, '/Users/sylvan/codes/test.log'))
+    print(time.time() - start)

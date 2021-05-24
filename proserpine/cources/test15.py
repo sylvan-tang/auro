@@ -29,4 +29,4 @@ class Solution:
         return output
 
 if __name__ == '__main__':
-    print Solution().LCS("1AB2345CD","12345EF")
+    print(Solution().LCS("1AB2345CD","12345EF"))

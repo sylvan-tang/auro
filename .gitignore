@@ -9,3 +9,7 @@ docker/hadoop/
 
 */.scannerwork/
 .scannerwork/
+
+proserpine/build/
+proserpine/dist/
+proserpine/proserpine.egg-info/
