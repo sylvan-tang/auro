@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <mysql.url>jdbc:mysql://127.0.0.1:2166?useSSL=false&amp;characterEncoding=utf8</mysql.url>
+        <mysql.url>jdbc:mysql://127.0.0.1:3307?useSSL=false&amp;characterEncoding=utf8</mysql.url>
         <mysql.user>root</mysql.user>
         <mysql.password>123456</mysql.password>
         <jooq.codegen.skip>true</jooq.codegen.skip>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
+            <version>8.0.11</version>
         </dependency>
         <dependency>
             <groupId>org.jooq</groupId>
@@ -46,12 +46,16 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>7.3.1</version>
+                <version>7.9.2</version>
                 <configuration>
                     <defaultSchema>auro</defaultSchema>
                     <schemas>
                         <schema>auro</schema>
                     </schemas>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <url>${mysql.url}</url>
+                    <user>${mysql.user}</user>
+                    <password>${mysql.password}</password>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -83,7 +87,7 @@
                     </jdbc>
                     <generator>
                         <strategy>
-                            <name>com.sensesai.sql.persistence.codegen.GeneratorStrategy</name>
+                            <name>com.sylvan.hecate.persistence.codegen.GeneratorStrategy</name>
                         </strategy>
                         <database>
                             <name>org.jooq.meta.mysql.MySQLDatabase</name>
@@ -100,7 +104,7 @@
                             <daos>false</daos>
                         </generate>
                         <target>
-                            <packageName>com.sensesai.sql.persistence.jooq</packageName>
+                            <packageName>com.sylvan.hecate.persistence.jooq</packageName>
                             <directory>src/main/java</directory>
                         </target>
                     </generator>
