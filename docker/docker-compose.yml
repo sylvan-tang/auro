@@ -79,3 +79,21 @@ services: # 配置在 docker 中启动的服务
       - ./hadoop/yarn/timeline:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
+
+  mysql:
+    image: mysql:8
+    container_name: auro-mysql
+    ports:
+      - 2166:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - auro-data:/var/lib/mysql
+    networks:
+      - auro-net
+
+volumes:
+  auro-data:
+
+networks:
+  auro-net:

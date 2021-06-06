@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 ROOT_PATH=$(pwd)
 pushd "$ROOT_PATH/gaea"
   sbt "scalafix RemoveUnused"
