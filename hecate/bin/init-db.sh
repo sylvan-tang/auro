@@ -13,12 +13,23 @@ docker-compose -f docker/docker-compose.yml down
 # start all containers defined in docker/docker-compose.yml
 docker-compose -f docker/docker-compose.yml up -d
 
-pushd $PROJECT_PATH/hecate
+cd $PROJECT_PATH/hecate
 
 read -p "确认清空数据库[y/N]? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-  mvn -pl hecate-persistence -Dflyway.skip=false flyway:clean
+  while read -r url user password location skipFlag; do
+    if [[ "$skipFlag" == "true" ]]; then
+      continue
+    fi
+    mvn -pl hecate-persistence -Dflyway.skip=false -Dflyway.url="$url" -Dflyway.user=$user -Dflyway.password=$password flyway:clean
+  done <"$PROJECT_PATH/hecate/bin/db.conf"
 fi
-mvn -pl hecate-persistence -Dflyway.skip=false flyway:migrate
-mvn -pl hecate-persistence -Djooq.codegen.skip=false jooq-codegen:generate
-popd
+
+while read -r url user password location skipFlag; do
+  if [[ "$skipFlag" == "true" ]]; then
+    continue
+  fi
+  mvn -pl hecate-persistence -Dflyway.skip=false -Dflyway.url="$url" -Dflyway.user=$user -Dflyway.password=$password flyway:migrate
+done <"$PROJECT_PATH/hecate/bin/db.conf"
+mvn -pl hecate-persistence -Djooq.codegen.skip=false jooq-codegen:generate -X
+cd $PROJECT_PATH
