@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x -e
+set -e
 
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && cd .. && pwd )"
 
@@ -13,7 +13,7 @@ docker-compose -f docker/docker-compose.yml down
 # start all containers defined in docker/docker-compose.yml
 docker-compose -f docker/docker-compose.yml up -d
 
-cd $PROJECT_PATH/hecate
+pushd $PROJECT_PATH/hecate
 
 read -p "确认清空数据库[y/N]? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -31,5 +31,5 @@ while read -r url user password location skipFlag; do
   fi
   mvn -pl hecate-persistence -Dflyway.skip=false -Dflyway.url="$url" -Dflyway.user=$user -Dflyway.password=$password flyway:migrate
 done <"$PROJECT_PATH/hecate/bin/db.conf"
-mvn -pl hecate-persistence -Djooq.codegen.skip=false jooq-codegen:generate -X
-cd $PROJECT_PATH
+mvn -pl hecate-persistence -Djooq.codegen.skip=false jooq-codegen:generate
+popd
