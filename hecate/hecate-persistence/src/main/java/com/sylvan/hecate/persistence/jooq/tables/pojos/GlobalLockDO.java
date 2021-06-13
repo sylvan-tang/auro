@@ -14,12 +14,12 @@ import javax.annotation.Generated;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class GlobalLockDO implements Serializable {
 
-  private static final long serialVersionUID = 1774689368;
+  private static final long serialVersionUID = -1246788456;
 
   private final Integer id;
   private final String key;
   private final String holder;
-  private final Integer expireMs;
+  private final Long expireMs;
   private final Timestamp createdAt;
   private final Timestamp updatedAt;
 
@@ -36,7 +36,7 @@ public class GlobalLockDO implements Serializable {
       Integer id,
       String key,
       String holder,
-      Integer expireMs,
+      Long expireMs,
       Timestamp createdAt,
       Timestamp updatedAt) {
     this.id = id;
@@ -59,7 +59,7 @@ public class GlobalLockDO implements Serializable {
     return this.holder;
   }
 
-  public Integer getExpireMs() {
+  public Long getExpireMs() {
     return this.expireMs;
   }
 

@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class GlobalLock extends TableImpl<GlobalLockRecord> {
 
-  private static final long serialVersionUID = -759456114;
+  private static final long serialVersionUID = -282619210;
 
   /** The reference instance of <code>global_lock</code> */
   public static final GlobalLock GLOBAL_LOCK = new GlobalLock();
@@ -68,12 +68,12 @@ public class GlobalLock extends TableImpl<GlobalLockRecord> {
           "持有者");
 
   /** The column <code>global_lock.expire_ms</code>. 锁失效时间，单位为毫秒，默认 -1 代表永久有效 */
-  public final TableField<GlobalLockRecord, Integer> EXPIRE_MS =
+  public final TableField<GlobalLockRecord, Long> EXPIRE_MS =
       createField(
           "expire_ms",
-          org.jooq.impl.SQLDataType.INTEGER
+          org.jooq.impl.SQLDataType.BIGINT
               .nullable(false)
-              .defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.INTEGER)),
+              .defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.BIGINT)),
           this,
           "锁失效时间，单位为毫秒，默认 -1 代表永久有效");
 

@@ -1,0 +1,22 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: master
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://127.0.0.1:3306/auro?characterEncoding=utf8&useTimezone=true&serverTimezone=GMT%2B8&useSSL=false
+        username: root
+        password: 123456
+        maximumPoolSize: 10
+        minimumIdle: 2
+        idleTimeout: 600000
+        connectionTimeout: 1000
+        maxLifetime: 1800000
+    masterslave:
+      name: ms
+      master-data-source-name: master
+      slave-data-source-names: master
+    props:
+      sql:
+        show: true

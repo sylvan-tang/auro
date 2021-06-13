@@ -3,6 +3,7 @@ package com.sylvan.hecate.tool.lock;
 import java.time.Duration;
 
 public interface GlobalLock {
+
   /** 获取全局锁 */
   boolean obtain(String key, String holder, Duration expire);
 
