@@ -4,7 +4,6 @@
 package com.sylvan.hecate.persistence.jooq.tables.pojos;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import javax.annotation.Generated;
 
 /** 全局锁表 */
@@ -14,14 +13,14 @@ import javax.annotation.Generated;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class GlobalLockDO implements Serializable {
 
-  private static final long serialVersionUID = -1246788456;
+  private static final long serialVersionUID = 1789901504;
 
   private final Integer id;
   private final String key;
   private final String holder;
   private final Long expireMs;
-  private final Timestamp createdAt;
-  private final Timestamp updatedAt;
+  private final Long createdAt;
+  private final Long updatedAt;
 
   public GlobalLockDO(GlobalLockDO value) {
     this.id = value.id;
@@ -33,12 +32,7 @@ public class GlobalLockDO implements Serializable {
   }
 
   public GlobalLockDO(
-      Integer id,
-      String key,
-      String holder,
-      Long expireMs,
-      Timestamp createdAt,
-      Timestamp updatedAt) {
+      Integer id, String key, String holder, Long expireMs, Long createdAt, Long updatedAt) {
     this.id = id;
     this.key = key;
     this.holder = holder;
@@ -63,11 +57,11 @@ public class GlobalLockDO implements Serializable {
     return this.expireMs;
   }
 
-  public Timestamp getCreatedAt() {
+  public Long getCreatedAt() {
     return this.createdAt;
   }
 
-  public Timestamp getUpdatedAt() {
+  public Long getUpdatedAt() {
     return this.updatedAt;
   }
 

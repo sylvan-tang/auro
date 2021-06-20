@@ -117,6 +117,16 @@
                             <includes>.*</includes>
                             <inputSchema>auro</inputSchema>
                             <outputSchemaToDefault>true</outputSchemaToDefault>
+                            <forcedTypes>
+                                <forcedType>
+                                    <userType>java.lang.Long</userType>
+                                    <converter>
+                                        com.sylvan.hecate.persistence.converter.TimestampConverter
+                                    </converter>
+                                    <expression>.*</expression>
+                                    <types>timestamp</types>
+                                </forcedType>
+                            </forcedTypes>
                         </database>
                         <generate>
                             <relations>true</relations>

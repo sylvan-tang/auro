@@ -3,11 +3,11 @@
  */
 package com.sylvan.hecate.persistence.jooq.tables;
 
+import com.sylvan.hecate.persistence.converter.TimestampConverter;
 import com.sylvan.hecate.persistence.jooq.DefaultSchema;
 import com.sylvan.hecate.persistence.jooq.Indexes;
 import com.sylvan.hecate.persistence.jooq.Keys;
 import com.sylvan.hecate.persistence.jooq.tables.records.FlywaySchemaHistoryRecord;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Generated;
@@ -30,7 +30,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
 
-  private static final long serialVersionUID = -1730679209;
+  private static final long serialVersionUID = -36344425;
 
   /** The reference instance of <code>flyway_schema_history</code> */
   public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = new FlywaySchemaHistory();
@@ -70,7 +70,7 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
       createField("installed_by", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
   /** The column <code>flyway_schema_history.installed_on</code>. */
-  public final TableField<FlywaySchemaHistoryRecord, Timestamp> INSTALLED_ON =
+  public final TableField<FlywaySchemaHistoryRecord, Long> INSTALLED_ON =
       createField(
           "installed_on",
           org.jooq.impl.SQLDataType.TIMESTAMP
@@ -79,7 +79,8 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
                   org.jooq.impl.DSL.field(
                       "CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMP)),
           this,
-          "");
+          "",
+          new TimestampConverter());
 
   /** The column <code>flyway_schema_history.execution_time</code>. */
   public final TableField<FlywaySchemaHistoryRecord, Integer> EXECUTION_TIME =

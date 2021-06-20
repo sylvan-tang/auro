@@ -3,11 +3,11 @@
  */
 package com.sylvan.hecate.persistence.jooq.tables;
 
+import com.sylvan.hecate.persistence.converter.TimestampConverter;
 import com.sylvan.hecate.persistence.jooq.DefaultSchema;
 import com.sylvan.hecate.persistence.jooq.Indexes;
 import com.sylvan.hecate.persistence.jooq.Keys;
 import com.sylvan.hecate.persistence.jooq.tables.records.GlobalLockRecord;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Generated;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class GlobalLock extends TableImpl<GlobalLockRecord> {
 
-  private static final long serialVersionUID = -282619210;
+  private static final long serialVersionUID = 1319643161;
 
   /** The reference instance of <code>global_lock</code> */
   public static final GlobalLock GLOBAL_LOCK = new GlobalLock();
@@ -78,7 +78,7 @@ public class GlobalLock extends TableImpl<GlobalLockRecord> {
           "锁失效时间，单位为毫秒，默认 -1 代表永久有效");
 
   /** The column <code>global_lock.created_at</code>. 创建时间 */
-  public final TableField<GlobalLockRecord, Timestamp> CREATED_AT =
+  public final TableField<GlobalLockRecord, Long> CREATED_AT =
       createField(
           "created_at",
           org.jooq.impl.SQLDataType.TIMESTAMP
@@ -87,10 +87,11 @@ public class GlobalLock extends TableImpl<GlobalLockRecord> {
                   org.jooq.impl.DSL.field(
                       "CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMP)),
           this,
-          "创建时间");
+          "创建时间",
+          new TimestampConverter());
 
   /** The column <code>global_lock.updated_at</code>. 最后修改时间 */
-  public final TableField<GlobalLockRecord, Timestamp> UPDATED_AT =
+  public final TableField<GlobalLockRecord, Long> UPDATED_AT =
       createField(
           "updated_at",
           org.jooq.impl.SQLDataType.TIMESTAMP
@@ -99,7 +100,8 @@ public class GlobalLock extends TableImpl<GlobalLockRecord> {
                   org.jooq.impl.DSL.field(
                       "CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMP)),
           this,
-          "最后修改时间");
+          "最后修改时间",
+          new TimestampConverter());
 
   /** Create a <code>global_lock</code> table reference */
   public GlobalLock() {

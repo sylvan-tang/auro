@@ -42,7 +42,8 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
                         .and(
                             GlobalLock.GLOBAL_LOCK
                                 .EXPIRE_MS
-                                .gt(0L)
+                                .add(GlobalLock.GLOBAL_LOCK.UPDATED_AT)
+                                .gt(System.currentTimeMillis())
                                 .or(GlobalLock.GLOBAL_LOCK.EXPIRE_MS.eq(-1L)))))
         > 0;
   }
@@ -72,6 +73,14 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
         == 1;
   }
 
+  public void delete(String key) {
+    try {
+      context.deleteFrom(getTable()).where(GlobalLock.GLOBAL_LOCK.KEY.eq(key)).execute();
+    } catch (DataAccessException e) {
+      log.warn("Can't delete key: {}", key, e);
+    }
+  }
+
   public boolean update(String key, String holder, long expireMs) {
     try {
       return context
@@ -85,5 +94,42 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
       log.warn("Failed to update key: {}", key, e);
       return false;
     }
+  }
+
+  public boolean upsert(String key, String holder, long expireMs) {
+    return context.transactionResult(
+        config -> {
+          int affectedCount =
+              DSL.using(config)
+                  .insertInto(
+                      GlobalLock.GLOBAL_LOCK,
+                      GlobalLock.GLOBAL_LOCK.KEY,
+                      GlobalLock.GLOBAL_LOCK.HOLDER,
+                      GlobalLock.GLOBAL_LOCK.EXPIRE_MS)
+                  .values(key, holder, expireMs)
+                  .onDuplicateKeyIgnore()
+                  .execute();
+
+          if (affectedCount == 0) {
+            // 获取锁失败时尝试获取已经失效的锁
+            affectedCount =
+                DSL.using(config)
+                    .update(GlobalLock.GLOBAL_LOCK)
+                    .set(GlobalLock.GLOBAL_LOCK.HOLDER, holder)
+                    .set(GlobalLock.GLOBAL_LOCK.EXPIRE_MS, expireMs)
+                    .where(
+                        GlobalLock.GLOBAL_LOCK
+                            .EXPIRE_MS
+                            .ne(-1L)
+                            .and(
+                                GlobalLock.GLOBAL_LOCK
+                                    .EXPIRE_MS
+                                    .add(GlobalLock.GLOBAL_LOCK.UPDATED_AT)
+                                    .lt(System.currentTimeMillis())))
+                    .execute();
+            return affectedCount == 1;
+          }
+          return true;
+        });
   }
 }

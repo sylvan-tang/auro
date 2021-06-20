@@ -4,7 +4,6 @@
 package com.sylvan.hecate.persistence.jooq.tables.records;
 
 import com.sylvan.hecate.persistence.jooq.tables.FlywaySchemaHistory;
-import java.sql.Timestamp;
 import javax.annotation.Generated;
 import org.jooq.Field;
 import org.jooq.Record1;
@@ -19,9 +18,9 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaHistoryRecord>
     implements Record10<
-        Integer, String, String, String, String, Integer, String, Timestamp, Integer, Byte> {
+        Integer, String, String, String, String, Integer, String, Long, Integer, Byte> {
 
-  private static final long serialVersionUID = -837515478;
+  private static final long serialVersionUID = 1832166182;
 
   /** Setter for <code>flyway_schema_history.installed_rank</code>. */
   public FlywaySchemaHistoryRecord setInstalledRank(Integer value) {
@@ -101,14 +100,14 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
   }
 
   /** Setter for <code>flyway_schema_history.installed_on</code>. */
-  public FlywaySchemaHistoryRecord setInstalledOn(Timestamp value) {
+  public FlywaySchemaHistoryRecord setInstalledOn(Long value) {
     set(7, value);
     return this;
   }
 
   /** Getter for <code>flyway_schema_history.installed_on</code>. */
-  public Timestamp getInstalledOn() {
-    return (Timestamp) get(7);
+  public Long getInstalledOn() {
+    return (Long) get(7);
   }
 
   /** Setter for <code>flyway_schema_history.execution_time</code>. */
@@ -149,14 +148,14 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
 
   /** {@inheritDoc} */
   @Override
-  public Row10<Integer, String, String, String, String, Integer, String, Timestamp, Integer, Byte>
+  public Row10<Integer, String, String, String, String, Integer, String, Long, Integer, Byte>
       fieldsRow() {
     return (Row10) super.fieldsRow();
   }
 
   /** {@inheritDoc} */
   @Override
-  public Row10<Integer, String, String, String, String, Integer, String, Timestamp, Integer, Byte>
+  public Row10<Integer, String, String, String, String, Integer, String, Long, Integer, Byte>
       valuesRow() {
     return (Row10) super.valuesRow();
   }
@@ -205,7 +204,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
 
   /** {@inheritDoc} */
   @Override
-  public Field<Timestamp> field8() {
+  public Field<Long> field8() {
     return FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_ON;
   }
 
@@ -265,7 +264,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
 
   /** {@inheritDoc} */
   @Override
-  public Timestamp component8() {
+  public Long component8() {
     return getInstalledOn();
   }
 
@@ -325,7 +324,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
 
   /** {@inheritDoc} */
   @Override
-  public Timestamp value8() {
+  public Long value8() {
     return getInstalledOn();
   }
 
@@ -392,7 +391,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
 
   /** {@inheritDoc} */
   @Override
-  public FlywaySchemaHistoryRecord value8(Timestamp value) {
+  public FlywaySchemaHistoryRecord value8(Long value) {
     setInstalledOn(value);
     return this;
   }
@@ -421,7 +420,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
       String value5,
       Integer value6,
       String value7,
-      Timestamp value8,
+      Long value8,
       Integer value9,
       Byte value10) {
     value1(value1);
@@ -455,7 +454,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
       String script,
       Integer checksum,
       String installedBy,
-      Timestamp installedOn,
+      Long installedOn,
       Integer executionTime,
       Byte success) {
     super(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY);
