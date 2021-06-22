@@ -131,4 +131,53 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
       return false;
     }
   }
+
+  public boolean upsert(String key, String holder, long expireMs) {
+    try {
+      return context.transactionResult(
+          config -> {
+            GlobalLockRecord record =
+                DSL.using(config)
+                    .selectFrom(getTable())
+                    .where(GlobalLock.GLOBAL_LOCK.KEY.eq(key))
+                    .fetchOne();
+            if (Objects.isNull(record)) {
+              return DSL.using(config)
+                      .insertInto(
+                          GlobalLock.GLOBAL_LOCK,
+                          GlobalLock.GLOBAL_LOCK.KEY,
+                          GlobalLock.GLOBAL_LOCK.HOLDER,
+                          GlobalLock.GLOBAL_LOCK.EXPIRE_MS)
+                      .values(key, holder, expireMs)
+                      .execute()
+                  == 1;
+            }
+
+            long timestamp = System.currentTimeMillis() - record.getExpireMs();
+
+            if (record.getExpireMs() == -1L || record.getUpdatedAt() >= timestamp) {
+              return record.getHolder().equals(holder);
+            }
+
+            return DSL.using(config)
+                    .update(getTable())
+                    .set(GlobalLock.GLOBAL_LOCK.EXPIRE_MS, expireMs)
+                    .set(GlobalLock.GLOBAL_LOCK.HOLDER, holder)
+                    .where(
+                        GlobalLock.GLOBAL_LOCK
+                            .KEY
+                            .eq(key)
+                            .and(
+                                GlobalLock.GLOBAL_LOCK
+                                    .EXPIRE_MS
+                                    .ne(-1L)
+                                    .and(GlobalLock.GLOBAL_LOCK.UPDATED_AT.lt(timestamp))))
+                    .execute()
+                == 1;
+          });
+    } catch (DataAccessException e) {
+      log.warn("Failed to update key: {}", key, e);
+      return false;
+    }
+  }
 }
