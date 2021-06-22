@@ -32,23 +32,6 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
         > 0;
   }
 
-  public boolean exists(String key, String holder) {
-    return context.fetchCount(
-            DSL.selectFrom(getTable())
-                .where(
-                    GlobalLock.GLOBAL_LOCK
-                        .KEY
-                        .eq(key)
-                        .and(GlobalLock.GLOBAL_LOCK.HOLDER.eq(holder))
-                        .and(
-                            GlobalLock.GLOBAL_LOCK
-                                .EXPIRE_MS
-                                .add(GlobalLock.GLOBAL_LOCK.UPDATED_AT)
-                                .gt(System.currentTimeMillis())
-                                .or(GlobalLock.GLOBAL_LOCK.EXPIRE_MS.eq(-1L)))))
-        > 0;
-  }
-
   public boolean insert(String key, String holder, long expireMs) {
     try {
       return context
@@ -91,41 +74,6 @@ public class GlobalLockDao extends DAOImpl<GlobalLockRecord, GlobalLockDO, Integ
                   GlobalLock.GLOBAL_LOCK.KEY.eq(key).and(GlobalLock.GLOBAL_LOCK.HOLDER.eq(holder)))
               .execute()
           == 1;
-    } catch (DataAccessException e) {
-      log.warn("Failed to update key: {}", key, e);
-      return false;
-    }
-  }
-
-  public boolean updateHolder(String key, String holder, long expireMs) {
-    try {
-      return context.transactionResult(
-          config -> {
-            GlobalLockRecord record =
-                DSL.using(config)
-                    .selectFrom(getTable())
-                    .where(GlobalLock.GLOBAL_LOCK.KEY.eq(key))
-                    .fetchOne();
-            if (Objects.isNull(record)) {
-              return false;
-            }
-            long timestamp = System.currentTimeMillis() - record.getExpireMs();
-            return DSL.using(config)
-                    .update(getTable())
-                    .set(GlobalLock.GLOBAL_LOCK.EXPIRE_MS, expireMs)
-                    .set(GlobalLock.GLOBAL_LOCK.HOLDER, holder)
-                    .where(
-                        GlobalLock.GLOBAL_LOCK
-                            .KEY
-                            .eq(key)
-                            .and(
-                                GlobalLock.GLOBAL_LOCK
-                                    .EXPIRE_MS
-                                    .ne(-1L)
-                                    .and(GlobalLock.GLOBAL_LOCK.UPDATED_AT.lt(timestamp))))
-                    .execute()
-                == 1;
-          });
     } catch (DataAccessException e) {
       log.warn("Failed to update key: {}", key, e);
       return false;
