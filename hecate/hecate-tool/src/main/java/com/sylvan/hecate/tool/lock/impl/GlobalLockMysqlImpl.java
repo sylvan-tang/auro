@@ -13,8 +13,10 @@ public class GlobalLockMysqlImpl implements GlobalLock {
 
   @Override
   public boolean obtain(String key, String holder, Duration expire) {
-    return globalLockDao.upsert(key, holder, expire.toMillis())
-        || globalLockDao.exists(key, holder);
+
+    return globalLockDao.insert(key, holder, expire.toMillis())
+        || globalLockDao.exists(key, holder)
+        || globalLockDao.updateHolder(key, holder, expire.toMillis());
   }
 
   @Override
