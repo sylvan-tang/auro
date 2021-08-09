@@ -12,6 +12,13 @@ services: # 配置在 docker 中启动的服务
       - local-data:/var/lib/mysql
     networks:
       - local-net
+  redis:
+    image: redis:4.0
+    container_name: local-redis
+    ports:
+      - 6379:6379
+    networks:
+      - local-net
 
 volumes:
   local-data:
