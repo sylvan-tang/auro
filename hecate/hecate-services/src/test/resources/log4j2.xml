@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+    <Properties>
+        <property name="APP_NAME">olaa</property>
+        <property name="BASE_PATH">.</property>
+        <property name="LOG_LAYOUT_PATTERN">%d{yyyy.MM.dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n
+        </property>
+        <property name="LOG_FILE_NAME">${BASE_PATH}/${APP_NAME}.log</property>
+        <property name="LOG_FILE_PATTERN">
+            ${BASE_PATH}/${APP_NAME}_%d{yyyy-MM-dd}.log
+        </property>
+        <property name="ERROR_FILE_NAME">${BASE_PATH}/${APP_NAME}.error</property>
+        <property name="ERROR_FILE_PATTERN">
+            ${BASE_PATH}/${APP_NAME}_%d{yyyy-MM-dd}.error
+        </property>
+        <property name="HUBBLE_FILE_NAME">${BASE_PATH}/hubble/hubble.log</property>
+        <property name="HUBBLE_FILE_PATTERN">
+            ${BASE_PATH}/hubble/hubble_%d{yyyy-MM-dd}.log
+        </property>
+    </Properties>
+
+    <Appenders>
+        <Console name="LOG_CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_LAYOUT_PATTERN}"/>
+        </Console>
+
+    </Appenders>
+
+    <loggers>
+        <Logger name="com.sylvan.hecate" level="debug" additivity="false">
+            <appender-ref ref="LOG_CONSOLE"/>
+        </Logger>
+        <!-- https://www.jooq.org/doc/latest/manual/sql-execution/logging/ -->
+        <!-- SQL execution logging is logged to the LoggerListener logger at DEBUG level -->
+        <Logger name="org.jooq.tools.LoggerListener" level="ERROR" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <!-- Other jOOQ related debug log output -->
+        <Logger name="org.jooq" level="ERROR" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <Logger name="org.apache.hadoop" level="warn" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <Logger name="org.mortbay" level="warn" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <Logger name="org.apache.zookeeper" level="warn" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <Logger name="org.apache.hadoop.hbase" level="warn" additivity="false">
+            <AppenderRef ref="LOG_CONSOLE"/>
+        </Logger>
+        <Root level="info" includeLocation="true">
+            <appender-ref ref="LOG_CONSOLE"/>
+        </Root>
+    </loggers>
+</Configuration>

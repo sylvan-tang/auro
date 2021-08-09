@@ -1,4 +1,4 @@
-package com.sylvan.hecate.common.rxjava.pubsub;
+package com.sylvan.hecate.common.pubsub.rxjava;
 
 import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.functions.Supplier;
