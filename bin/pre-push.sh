@@ -3,7 +3,10 @@ set -e
 
 ROOT_PATH=$(pwd)
 
-if [ "$( docker container inspect -f '{{.State.Running}}' 'auro-mysql' )" == "false" ]; then
+if [ "$( docker container inspect -f '{{.State.Running}}' 'local-mysql' )" == "false" ]; then
+  docker-compose -f docker/docker-compose.yml up -d
+fi
+if [ "$( docker container inspect -f '{{.State.Running}}' 'local-redis' )" == "false" ]; then
   docker-compose -f docker/docker-compose.yml up -d
 fi
 # shellcheck disable=SC2164
