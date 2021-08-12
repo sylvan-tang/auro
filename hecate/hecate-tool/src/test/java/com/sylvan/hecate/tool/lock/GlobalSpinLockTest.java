@@ -3,6 +3,9 @@ package com.sylvan.hecate.tool.lock;
 import com.sylvan.hecate.tool.Bootstrap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLongArray;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +25,7 @@ class GlobalSpinLockTest {
   @Test
   void spinLockShouldWorkBetweenThread() throws InterruptedException {
     AtomicInteger counter = new AtomicInteger();
+    AtomicLongArray obtainTimestamps = new AtomicLongArray(THREAD_COUNT);
     final CountDownLatch startLatch = new CountDownLatch(START_LATCH);
     final CountDownLatch endLatch = new CountDownLatch(THREAD_COUNT);
     for (int i = 0; i < THREAD_COUNT; ++i) {
@@ -33,14 +37,31 @@ class GlobalSpinLockTest {
                 } catch (Exception ex) {
                   ex.printStackTrace();
                 }
-                globalSpinLock.spinLock(KEY);
-                counter.incrementAndGet();
-                globalSpinLock.spinUnlock(KEY);
+                try {
+                  globalSpinLock.spinLock(KEY);
+                  obtainTimestamps.compareAndSet(counter.get(), 0L, System.currentTimeMillis());
+                  counter.incrementAndGet();
+                } catch (Exception ex) {
+                  ex.printStackTrace();
+                }
+                try {
+                  globalSpinLock.spinUnlock(KEY);
+                } catch (Exception ex) {
+                  ex.printStackTrace();
+                }
+                endLatch.countDown();
               });
       thread.start();
     }
     startLatch.countDown();
     endLatch.await();
     Assertions.assertEquals(THREAD_COUNT, counter.get());
+    Assertions.assertEquals(
+        THREAD_COUNT,
+        IntStream.range(0, THREAD_COUNT)
+            .boxed()
+            .map(obtainTimestamps::get)
+            .collect(Collectors.toSet())
+            .size());
   }
 }
