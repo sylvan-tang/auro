@@ -4,6 +4,7 @@ import com.sylvan.hecate.persistence.dao.GlobalLockDao;
 import com.sylvan.hecate.tool.Bootstrap;
 import com.sylvan.hecate.tool.lock.impl.GlobalLockMysqlImpl;
 import com.sylvan.hecate.tool.lock.impl.GlobalLockMysqlSimpleImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,13 @@ class GlobalLockTest extends AbstractGlobalLockTest {
 
   @BeforeEach
   void setUp() {
+    System.out.printf("Start at: %s", System.currentTimeMillis());
     globalLockDao.delete(AbstractGlobalLockTest.KEY);
+  }
+
+  @AfterEach
+  void tearDown() {
+    System.out.printf("End at: %s", System.currentTimeMillis());
   }
 
   @Test

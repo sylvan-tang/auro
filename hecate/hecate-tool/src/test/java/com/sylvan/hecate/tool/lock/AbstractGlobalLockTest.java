@@ -3,7 +3,7 @@ package com.sylvan.hecate.tool.lock;
 import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 public abstract class AbstractGlobalLockTest {
   private static final int START_LATCH = 1;
@@ -39,40 +39,42 @@ public abstract class AbstractGlobalLockTest {
     }
     startLatch.countDown();
     endLatch.await();
-    Assert.assertEquals(isWorked, counter.get() == 1);
+    if (isWorked) {
+      Assertions.assertEquals(1, counter.get());
+    }
   }
 
   protected void globalLockShouldRetainByHolder(GlobalLock lock) throws InterruptedException {
-    Assert.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
-    Assert.assertFalse(lock.retain(KEY, HOLDER_TONY, Duration.ofHours(1)));
-    Assert.assertTrue(lock.retain(KEY, HOLDER_JIM, Duration.ofMillis(1)));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
+    Assertions.assertFalse(lock.retain(KEY, HOLDER_TONY, Duration.ofHours(1)));
+    Assertions.assertTrue(lock.retain(KEY, HOLDER_JIM, Duration.ofMillis(1)));
     Thread.sleep(2);
-    Assert.assertTrue("续租失效之后可以被重新获得", lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
-    Assert.assertTrue(lock.release(KEY, HOLDER_JIM));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)), "续租失效之后可以被重新获得");
+    Assertions.assertTrue(lock.release(KEY, HOLDER_JIM));
   }
 
   protected void globalLockShouldReleaseByHolder(GlobalLock lock) {
-    Assert.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
-    Assert.assertFalse(lock.release(KEY, HOLDER_TONY));
-    Assert.assertTrue(lock.release(KEY, HOLDER_JIM));
-    Assert.assertTrue("锁释放之后可以被重新获得", lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
-    Assert.assertTrue(lock.release(KEY, HOLDER_JIM));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)));
+    Assertions.assertFalse(lock.release(KEY, HOLDER_TONY));
+    Assertions.assertTrue(lock.release(KEY, HOLDER_JIM));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofHours(1)), "锁释放之后可以被重新获得");
+    Assertions.assertTrue(lock.release(KEY, HOLDER_JIM));
   }
 
   protected void lockShouldBeObtainAfterTimeout(GlobalLock lock) throws InterruptedException {
-    Assert.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofMillis(20)));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofMillis(20)));
     Thread.sleep(1000);
-    Assert.assertTrue(
-        "在获得锁之后没有显式释放，超时后可以被其他线程获得", lock.obtain(KEY, HOLDER_TONY, Duration.ofHours(1)));
-    Assert.assertTrue(lock.release(KEY, HOLDER_TONY));
+    Assertions.assertTrue(
+        lock.obtain(KEY, HOLDER_TONY, Duration.ofHours(1)), "在获得锁之后没有显式释放，超时后可以被其他线程获得");
+    Assertions.assertTrue(lock.release(KEY, HOLDER_TONY));
   }
 
   protected void lockShouldBeRetrainAfterTimeout(GlobalLock lock) throws InterruptedException {
-    Assert.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofMillis(20)));
+    Assertions.assertTrue(lock.obtain(KEY, HOLDER_JIM, Duration.ofMillis(20)));
     Thread.sleep(1000);
-    Assert.assertTrue(
-        "在获得锁之后没有显式释放，在没被其他线程获得锁的前提下，超时后可以被自己续租",
-        lock.retain(KEY, HOLDER_JIM, Duration.ofHours(1)));
-    Assert.assertTrue(lock.release(KEY, HOLDER_JIM));
+    Assertions.assertTrue(
+        lock.retain(KEY, HOLDER_JIM, Duration.ofHours(1)),
+        "在获得锁之后没有显式释放，在没被其他线程获得锁的前提下，超时后可以被自己续租");
+    Assertions.assertTrue(lock.release(KEY, HOLDER_JIM));
   }
 }
