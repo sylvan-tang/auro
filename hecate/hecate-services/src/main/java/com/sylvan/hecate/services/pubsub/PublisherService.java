@@ -16,9 +16,7 @@ public class PublisherService {
   private final StringRedisTemplate stringRedisTemplate;
 
   public void publish(ChannelTopic topic, String message) {
-    log.info("Start publish, topic: {}, message: {}", topic.getTopic(), message);
     stringRedisTemplate.convertAndSend(topic.getTopic(), message);
-    log.info("End publish, topic: {}, message: {}", topic, message);
   }
 
   public void batchPublish(ChannelTopic topic, List<String> messages) {
