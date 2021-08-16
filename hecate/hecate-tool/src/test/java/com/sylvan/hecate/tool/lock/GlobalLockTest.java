@@ -35,6 +35,8 @@ class GlobalLockTest extends AbstractGlobalLockTest {
   @Test
   void testGlobalLockShouldWorkBetweenThread() throws InterruptedException {
     globalLockShouldWorkBetweenThread(globalLockMysql, true);
+    globalLockDao.delete(AbstractGlobalLockTest.KEY);
+    globalLockShouldWorkBetweenThread(globalLockMysqlSimple, false);
   }
 
   @Test
@@ -55,10 +57,5 @@ class GlobalLockTest extends AbstractGlobalLockTest {
   @Test
   void testLockShouldBeRetrainAfterTimeout() throws InterruptedException {
     lockShouldBeRetrainAfterTimeout(globalLockMysql);
-  }
-
-  @Test
-  void testLockSimpleImpl() throws InterruptedException {
-    //    globalLockShouldWorkBetweenThread(globalLockMysqlSimple, false);
   }
 }
