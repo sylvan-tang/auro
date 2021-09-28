@@ -197,6 +197,12 @@
                 <artifactId>spring-boot-starter-data-redis</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.68.Final</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
