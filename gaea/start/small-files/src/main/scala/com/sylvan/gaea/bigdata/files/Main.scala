@@ -6,11 +6,11 @@ import wvlet.log.LogSupport
 
 object Main extends LogSupport {
   def main(args: Array[String]): Unit = {
-    //    val generator = SparkAPI("SmallFilesGenerator")
-    //    generator.setConf(SmallFilesSetting.folderPath, args.apply(0))
-    //    generator.setConf(SmallFilesSetting.dataNumConf, args.apply(1))
-    //    generator.setConf(SmallFilesSetting.fileNumConf, args.apply(2))
-    //    generator.runAndStop(SmallFiles.generateFiles)
+    val generator = SparkAPI("SmallFilesGenerator")
+    generator.setConf(SmallFilesSetting.folderPath, args.apply(0))
+    generator.setConf(SmallFilesSetting.dataNumConf, args.apply(1))
+    generator.setConf(SmallFilesSetting.fileNumConf, args.apply(2))
+    generator.runAndStop(SmallFiles.generateFiles)
 
     val reader = SparkAPI("SmallFilesReader")
     reader.setConf(SmallFilesSetting.folderPath, args.apply(0))

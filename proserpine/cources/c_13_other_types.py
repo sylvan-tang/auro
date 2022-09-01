@@ -10,13 +10,13 @@
 # 5. 字典
 
 # 6. 布尔类型，判定式
-True  # 真
-False  # 假
+print(True)  # 真
+print(False)  # 假
 
 print("1" == "2")
 
 # 7. 无, 定义了「无法定义」这个概念
-None  # null
+print(None)  # null
 print(type(None))
 
 # 8 位 01010101  8  bytes
