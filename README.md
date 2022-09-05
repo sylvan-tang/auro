@@ -6,6 +6,7 @@
   * java 程序对应的主项目名为 hecate
   * scala 程序对应的主项目名为 gaea
   * python 程序对应的主项目名为 proserpine
+  * rust 程序对应的主项目名为 rhadamanthys
 * demo 的 package：com.sylvan.{主项目名}.{大类型}.{主题名}
 * module 包 {主项目名}-{大类型} 目录下放分享稿：{主题名}-bigdata-smallfile.md
 * module 包 {主项目名}-{大类型} 目录下新建 picture/{主题名}/ 目录存放 {主题名}-bigdata-smallfile.md 需要用到的图片
