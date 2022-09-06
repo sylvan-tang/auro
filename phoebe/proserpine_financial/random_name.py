@@ -1,8 +1,11 @@
-import random
+import secrets
+
+head_charts = [c for c in range(0xb0, 0xf7)]
+body_charts = [c for c in range(0xa1, 0xfe)]
 
 def GBK2312():
-    head = random.randint(0xb0, 0xf7)
-    body = random.randint(0xa1, 0xfe)
+    head = secrets.choice(head_charts)
+    body = secrets.choice(body_charts)
     val = f'{head:x}{body:x}'
     str = bytes.fromhex(val).decode('gb2312')
     return str
@@ -10,7 +13,7 @@ def GBK2312():
 count_list = [2,  4]
 
 def generate_name():
-    n = random.choice(count_list)
+    n = secrets.choice(count_list)
     name = ""
     while n > 0:
         name += GBK2312()
