@@ -24,19 +24,22 @@ def div(x):
     return x % 10 + div(x / 10)
 
 
-def addDigits(num):
+def add_digits(num):
     if num < 10:
         return num
     x = div(num)
-    return addDigits(x)
+    return add_digits(x)
 
-# F{0} = 0
-# F{1} = 1
-# F{n}=F{n-1}+F{n-2}（n≧2）
-# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+
 
 def fibo(n):
+    """
+    # F{0} = 0
+    # F{1} = 1
+    # F{n}=F{n-1}+F{n-2}（n≧2）
+    # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+    """
     if n == 0 or n == 1:
         return n
     return fibo(n - 1) + fibo(n - 2)
