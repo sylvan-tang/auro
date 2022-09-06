@@ -3,10 +3,10 @@
 
 # 代码提交原则
 * 每一个新的主题，新建一个新的 module 进行撰写，module 名 {主项目名}-{大类型}
-  * java 程序对应的主项目名为 hecate
-  * scala 程序对应的主项目名为 gaea
-  * python 程序对应的主项目名为 proserpine
-  * rust 程序对应的主项目名为 rhadamanthys
+  * java 程序对应的主项目名为 juno
+  * scala 程序对应的主项目名为 soteria
+  * python 程序对应的主项目名为 phoebe
+  * rust 程序对应的主项目名为 rhea
 * demo 的 package：com.sylvan.{主项目名}.{大类型}.{主题名}
 * module 包 {主项目名}-{大类型} 目录下放分享稿：{主题名}-bigdata-smallfile.md
 * module 包 {主项目名}-{大类型} 目录下新建 picture/{主题名}/ 目录存放 {主题名}-bigdata-smallfile.md 需要用到的图片
@@ -23,4 +23,4 @@
 * 添加定时复习框架
 * RxJava 底层实现原理
 * Netty 底层实现原理
-* 整理 proserpine 目录
+* 整理 phoebe 目录
