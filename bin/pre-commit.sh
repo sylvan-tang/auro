@@ -8,7 +8,7 @@ popd
 pushd "$ROOT_PATH/hecate"
   mvn com.coveo:fmt-maven-plugin:format
 popd
-pushd "$ROOT_PATH/hecate"
+pushd "$ROOT_PATH/rhadamanthys"
   cargo fmt
 popd
 git add .

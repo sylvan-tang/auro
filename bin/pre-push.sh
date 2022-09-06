@@ -27,7 +27,7 @@ if [[ "$( docker ps | grep sonarqube )" == "" ]]; then
 fi
 
 java_projects=""
-for path in $ROOT_PATH/hecate/*/src; do
+for path in $ROOT_PATH/hecate/*/target/classes; do
   java_projects+=",$path"
 done
 
