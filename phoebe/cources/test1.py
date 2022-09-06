@@ -9,20 +9,20 @@ n, m
 
 """
 
-import random
 import time
+import secrets
 
 chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
+lens = [i for i  in range(3, 7)]
 
 def random_gen_words(count):
     while count > 0:
         count -= 1
-        word_len = random.randint(3, 7)
+        word_len = secrets.choice(lens)
         word = ''
         while word_len > 0:
             word_len -= 1
-            char = random.choice(chars)
+            char = secrets.choice(chars)
             word = word + char
         yield word
 
