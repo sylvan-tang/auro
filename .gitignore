@@ -13,3 +13,4 @@ docker/hadoop/
 phoebe/build/
 phoebe/dist/
 phoebe/phoebe.egg-info/
+.history/
