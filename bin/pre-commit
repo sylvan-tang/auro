@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-ROOT_PATH=$(pwd)
+ROOT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && cd .. && pwd )"
+
 pushd "$ROOT_PATH/soteria"
   sbt "scalafix RemoveUnused"
 popd

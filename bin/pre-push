@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ROOT_PATH=$(pwd)
+ROOT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && cd .. && pwd )"
 
 docker-compose -f docker/docker-compose.yml up -d
 
@@ -38,3 +38,5 @@ sonar-scanner \
  -Dsonar.login=sqp_7a07ebc04c11c68c188bd519eab4a6745749dd8f
 
 echo "sonar scanning end."
+
+git submodule sync
