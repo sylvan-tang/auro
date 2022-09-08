@@ -3,7 +3,6 @@ set -e
 
 git config user.name sylvan
 git config user.email sylvan2future@gmail.com
-git config --global status.submoduleSummary true
 
 PROJECT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
