@@ -4,6 +4,9 @@ set -e
 msg=$(git show-branch --no-name HEAD)
 ROOT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && cd .. && pwd )"
 
+if [[ ! -d "$ROOT_PATH/auro.wiki" ]]; then
+  exit 0
+fi
 cd "$ROOT_PATH/auro.wiki"
 git diff --quiet origin/master
 if [[ $? == 0 ]]; then
