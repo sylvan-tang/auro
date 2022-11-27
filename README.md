@@ -1,6 +1,4 @@
-# 项目主旨
-
-记录个人知识点
+# AURO
 
 # 代码提交原则
 
@@ -14,11 +12,6 @@
 * module 包 {主项目名}-{大类型} 目录下放分享稿：{主题名}-bigdata-smallfile.md
 * module 包 {主项目名}-{大类型} 目录下新建 picture/{主题名}/ 目录存放 {主题名}-bigdata-smallfile.md 需要用到的图片
 
-### 系统初始化
-
-* 运行 bin/init.sh
-* 运行命令 `docker-compose -f docker/docker-compose.yml up -d`，启动系统环境
-
 ### TODO LIST
 
 * JsonUtils 添加测试用例
@@ -29,3 +22,8 @@
 * RxJava 底层实现原理
 * Netty 底层实现原理
 * 整理 phoebe 目录
+
+### 系统初始化
+
+* 运行 bin/init.sh
+* 运行命令 `docker-compose -f docker/docker-compose.yml up -d`，启动系统环

@@ -14,3 +14,4 @@ phoebe/build/
 phoebe/dist/
 phoebe/phoebe.egg-info/
 .history/
+*.DS_Store

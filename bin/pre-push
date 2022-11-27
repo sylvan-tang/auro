@@ -1,20 +1,59 @@
 #!/bin/bash
-set -e
-
 ROOT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && cd .. && pwd )"
 
 docker-compose -f docker/docker-compose.yml up -d
 
+sonar_sources=""
+
 # shellcheck disable=SC2164
 pushd "$ROOT_PATH/soteria"
-  sbt clean assembly && sbt coverageReport && sbt coverageAggregate
+  git diff origin/master --name-only | grep .scala
+  if [[ $? == 0 ]]; then
+    sbt clean assembly && sbt coverageReport && sbt coverageAggregate
+    if [[ -z "$sonar_sources" ]]; then
+      sonar_sources+="$ROOT_PATH/soteria"
+    else
+      sonar_sources+=",$ROOT_PATH/soteria"
+    fi
+  fi
 popd
 pushd "$ROOT_PATH/juno"
-  mvn clean test
+  git diff origin/master --name-only | grep .java
+  if [[ $? == 0 ]]; then
+    mvn clean test
+    for path in $ROOT_PATH/juno/*/target/classes; do
+      if [[ -z "$sonar_sources" ]]; then
+        sonar_sources+="$path"
+      else
+        sonar_sources+=",$path"
+      fi
+    done
+  fi
 popd
 pushd "$ROOT_PATH/rhea"
-  cargo build
+  git diff origin/master --name-only | grep .rs
+  if [[ $? == 0 ]]; then
+    cargo build
+    if [[ -z "$sonar_sources" ]]; then
+      sonar_sources+="$ROOT_PATH/rhea/src"
+    else
+      sonar_sources+=",$ROOT_PATH/rhea/src"
+    fi
+  fi
 popd
+
+git diff origin/master --name-only | grep .py
+if [[ $? == 0 ]]; then
+  if [[ -z "$sonar_sources" ]]; then
+    sonar_sources+="$ROOT_PATH/phoebe"
+  else
+    sonar_sources+=",$ROOT_PATH/phoebe"
+  fi
+fi
+
+if [[ -z "$sonar_sources" ]]; then
+  exit 0
+fi
 
 echo "start sonar scanning..."
 which sonar-scanner
@@ -26,14 +65,9 @@ if [[ "$( docker ps | grep sonarqube )" == "" ]]; then
  sh $ROOT_PATH/bin/start-sonarqube.sh
 fi
 
-java_projects=""
-for path in $ROOT_PATH/juno/*/target/classes; do
-  java_projects+=",$path"
-done
-
 sonar-scanner \
  -Dsonar.projectKey=auro \
- -Dsonar.sources=$ROOT_PATH/soteria,$ROOT_PATH/phoebe,$ROOT_PATH/rhea/src,$java_projects \
+ -Dsonar.sources=$sonar_sources \
  -Dsonar.host.url=http://localhost:10318 \
  -Dsonar.login=sqp_7a07ebc04c11c68c188bd519eab4a6745749dd8f
 
