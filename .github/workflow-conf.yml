@@ -1,0 +1,4 @@
+docker:
+  registry: ghcr.io
+  owner: sylvan-tang
+  tag: latest

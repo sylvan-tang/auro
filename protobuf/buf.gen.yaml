@@ -1,0 +1,34 @@
+version: v1
+plugins:
+  # Golang plugins
+  - name: go
+    out: ../golang/apis
+    opt:
+      - paths=source_relative
+  - name: go-grpc
+    out: ../golang/apis
+    opt:
+      - paths=source_relative
+  - name: grpc-gateway
+    out: ../golang/apis
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
+  - name: validate
+    out: ../golang/apis
+    opt:
+      - lang=go
+      - paths=source_relative
+  # Python plugins
+  - name: grpc-python
+    out: ../python/auro/apis
+    path: grpc_python_plugin
+  - name: mypy
+    out: ../python/auro/apis
+  - name: mypy_grpc
+    out: ../python/auro/apis
+  - name: python
+    out: ../python/auro/apis
+  # API documentation plugins
+  # - name: openapiv2
+  #   out: ./apis-doc

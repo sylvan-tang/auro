@@ -1,0 +1,2 @@
+Registry,Owner,Tag,User,SecretPath
+ghcr.io,sylvan-tang,latest,sylvan-tang,local/github-secret.txt

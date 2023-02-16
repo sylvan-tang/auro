@@ -1,0 +1,60 @@
+# start server with `make cmd/assoc-server-start` before test
+POST http://localhost:8103/v1/assocs
+Content-Type: application/json
+
+{
+    "from_id": 31,
+    "to_id": 34,
+    "a_type": "ASSOC_TYPE_TAGBY"
+}
+
+###
+PATCH http://localhost:8103/v1/assocs/34/ASSOC_TYPE_TAGTO/31
+Content-Type: application/json
+
+{
+    "assoc": {
+        "from_id":31,
+        "to_id":34,
+        "a_type": "ASSOC_TYPE_CREATED_BY"
+    }
+}
+
+### page get
+POST http://localhost:8103/v1/assocs/resources
+Content-Type: application/json
+
+{
+    "commonOption": {
+        "page": 1,
+        "size": 10
+    },
+    "option_filter": {
+        "a_type": "ASSOC_TYPE_TAGTO"
+    }
+}
+
+###
+DELETE http://localhost:8103/v1/assocs/38/ASSOC_TYPE_CREATED_BY/39
+Content-Type: application/json
+
+
+###batch delete
+PATCH http://localhost:8103/v1/assocs
+Content-Type: application/json
+
+{
+    "commonFilter": {
+        "columnName": "create_at",
+        "highTime": "2022-11-29 18:12:12",
+        "lowTime": "2022-11-22 17:12:12"
+    }
+}
+
+###get assoc
+GET http://localhost:8103/v1/assocs/31/ASSOC_TYPE_TAGBY/34
+Content-Type: application/json
+
+###get toids by fromid and atype
+GET http://localhost:8103/v1/assocs/31/ASSOC_TYPE_TAGBY
+Content-Type: application/json

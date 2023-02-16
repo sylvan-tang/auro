@@ -1,0 +1,12 @@
+__pypackages__/
+__pycache__
+dist/
+.idea/
+.vscode/
+.pdm.toml
+cov.xml
+.coverage
+.venv
+.pytest_cache/
+local/
+requirements.txt

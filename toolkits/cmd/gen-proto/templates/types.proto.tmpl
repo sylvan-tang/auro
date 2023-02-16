@@ -1,0 +1,82 @@
+{{.EntityHeaders}}
+package common.v1;
+
+import "google/protobuf/any.proto";
+
+// Code extends GRPC's code but maps to status 2XX in grpc-gateway.
+// Check:
+// definition:  https://github.com/grpc/grpc-go/blob/master/codes/codes.go,
+// and mapping: https://github.com/grpc-ecosystem/grpc-gateway/blob/master/runtime/errors.go.
+enum Code {
+  CODE_UNSPECIFIED = 0;
+
+  // Should avoid collision with grpc codes (0-16).
+
+  // For any unidentified error.
+  CODE_GENERAL_ERROR = 1000;
+  CODE_INVALID_ARGUMENT = 1003;
+  CODE_NOT_FOUND = 1005;
+  CODE_ALREADY_EXISTS = 1006;
+
+  // SQL errors. Should hide any detailed SQL message to prevent data breaches.
+  // For any unidentified SQL error.
+  CODE_GENERAL_SQL_ERROR = 2000;
+  // Maps sql.ErrNoRows.
+  CODE_SQL_NO_ROWS = 2001;
+
+  // k8s errors.
+  // For experiment  with k8s resource not enough.
+  CODE_K8S_NOT_ENOUGH_RESOURCE = 3000;
+}
+
+message Response {
+  int32 code = 1;
+  string message = 2;
+  google.protobuf.Any details = 3;
+}
+
+// option struct for list.
+message CommonOption {
+  // The standard page number, start with zero, use cursor or size as page rotation.
+  int32 page = 1;
+
+  // The standard list page size.
+  int32 size = 2;
+
+  // The standard list page cursor.
+  string cursor = 3;
+
+  // The search keyword.
+  string query = 4;
+
+  // A comma-separated list of fields to order by, sorted in descending order.
+  // Supported fields example:
+  //   * `create_at`
+  //   * `update_at`
+  string order_by = 5;
+
+  // A comma-separated list of fields to group by.
+  string group_by = 6;
+
+}
+
+// filter struct for list.
+message CommonFilter {
+  string column_name = 1;
+
+  // High time string in local timezone, `${column_name}` <= '${high_time}'.
+  string high_time = 2;
+
+  // Low time string in local timezone `${column_name}` > '${low_time}'.
+  string low_time = 3;
+
+  // exclude ids for next filter.
+  // next filter will reset high_time with the lower time in current respone,
+  // so, exclude_ids will be setted with the id that has timestamp ot this filter.
+  repeated int64 exclude_ids = 4;
+
+  // list object that id in include in this field.
+  repeated int64 include_ids = 5;
+}
+
+

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package thirdparty.greeting;
+
+option go_package = "github.com/sylvan/auro/apis/thirdparty/greeting;greeting";
+
+// The Hello message
+message Hello {
+  string name = 1; // Name of the people you greeting to.
+}

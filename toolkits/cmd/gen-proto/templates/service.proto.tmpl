@@ -1,0 +1,311 @@
+{{.EntityHeaders}}
+{{if .EntityResourcePattern}}import "google/api/annotations.proto";{{end}}
+import "google/api/client.proto";
+import "google/protobuf/field_mask.proto";
+// import "protoc-gen-swagger/options/annotations.proto";
+{{if .EntityResourcePattern}}{{.AuthImport}}{{end}}
+import "{{.PackageName}}/v{{.PackageVersionNo}}/{{.EntityName}}.proto";
+import "common/v1/types.proto";
+
+// option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+//  info: {
+//     title: "{{.CapitalEntityName}} Service"
+//     version: "{{.PackageVersionNo}}.0"
+//     contact: {
+//       name: "{{.CapitalEntityName}} Service"
+//       url: "http://{{.DefaultHost}}"
+//     }
+//   }
+//   host: "{{.SwaggerHost}}"
+//   base_path: "/{{.PackageName}}/v{{.PackageVersionNo}}/{{.EntityName}}"
+//   schemes: HTTP
+//   schemes: HTTPS
+//   consumes: "application/json"
+//   produces: "application/json"
+//   external_docs: {
+//     description: "API specification in Markdown",
+//     url: "http://{{.SwaggerUrl}}/{{.PackageName}}/v{{.PackageVersionNo}}/{{.EntityName}}"
+//   }
+// };
+
+// The service that handles the CRUD of {{.CapitalEntityName}}.
+service {{.CapitalEntityName}}Service {
+{{if .DefaultHost}}
+  option (google.api.default_host) = "{{.DefaultHost}}";{{end}}
+  // Creates a {{.CapitalEntityName}}.
+  rpc Create{{.CapitalEntityName}}(Create{{.CapitalEntityName}}Request)
+      returns (Create{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      post: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}"
+      body: "{{.EntityName}}"
+    };
+    option (google.api.method_signature) = "parent,{{.EntityName}}";{{end}}
+  }
+
+  // Gets a {{.CapitalEntityName}}.
+  rpc Get{{.CapitalEntityName}}(Get{{.CapitalEntityName}}Request)
+      returns (Get{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      get: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}/{{.EntityResourceKeyPattern}}"
+    };
+    option (google.api.method_signature) = "parent,{{.EntityResourceKey}}";{{end}}
+  }
+
+  // Updates a {{.CapitalEntityName}}.
+  rpc Update{{.CapitalEntityName}}(Update{{.CapitalEntityName}}Request)
+      returns (Update{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      patch: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}/{{.EntityIdExpr}}"
+      body: "{{.EntityName}}"
+    };
+    option (google.api.method_signature) = "parent,{{.EntityName}},update_mask";{{end}}
+  }
+
+  // Lists {{.CapitalEntityName}}s in a Location.
+  rpc List{{.CapitalEntityName}}s(List{{.CapitalEntityName}}sRequest)
+      returns (List{{.CapitalEntityName}}sResponse) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      // use post for list request body, add /resources in the end of path to diff from create {{.CapitalEntityName}} rpc.
+      post: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}/resources"
+      body: "*"
+    };{{end}}
+  }
+
+  // Deletes a {{.CapitalEntityName}}.
+  rpc Delete{{.CapitalEntityName}}(Delete{{.CapitalEntityName}}Request)
+      returns (Delete{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      delete: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}/{{.EntityResourceKeyPattern}}"
+    };
+    option (google.api.method_signature) = "parent,{{.EntityResourceKey}}";{{end}}
+  }
+
+  // Batch delete {{.CapitalEntityName}} by filter.
+  rpc Delete{{.CapitalEntityName}}s(Delete{{.CapitalEntityName}}sRequest)
+      returns (Delete{{.CapitalEntityName}}sResponse) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      patch: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}"
+      body: "*"
+    };{{end}}
+  }
+{{if .HasImportRequest}}
+  // Imports a {{.CapitalEntityName}}.
+  rpc Import{{.CapitalEntityName}}(Import{{.CapitalEntityName}}Request)
+      returns (Import{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      post: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}:import"
+      body: "import_config"
+    };
+    option (google.api.method_signature) = "parent,import_config";{{end}}
+  }{{end}}
+{{if .HasExportRequest}}
+  // Exports a {{.CapitalEntityName}}.
+  rpc Export{{.CapitalEntityName}}(Export{{.CapitalEntityName}}Request)
+      returns (Export{{.CapitalEntityName}}Response) {
+{{if .EntityResourcePattern}}    {{.AuthOption}}
+    option (google.api.http) = {
+      post: "/v{{.PackageVersionNo}}/{{if .ParentUri}}{parent={{.ParentUri}}}/{{end}}{{.EntityResource}}:export"
+      body: "export_config"
+    };
+    option (google.api.method_signature) = "parent,export_config";{{end}}
+  }{{end}}
+}
+
+// Request message for [{{.CapitalEntityName}}Service.Create{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Create{{.CapitalEntityName}}].
+message Create{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The {{.CapitalEntityName}} to create.
+  {{.CapitalEntityName}} {{.EntityName}} = 2;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Create{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Create{{.CapitalEntityName}}].
+message Create{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // response data.
+  {{.CapitalEntityName}} details = 3;
+}
+
+// Request message for [{{.CapitalEntityName}}Service.Get{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Get{{.CapitalEntityName}}].
+message Get{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The id of the {{.CapitalEntityName}} in database.
+  int64 id = 2;
+
+  // Mask specifying which fields to read.
+  google.protobuf.FieldMask read_mask = 3;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Get{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Get{{.CapitalEntityName}}].
+message Get{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // response data.
+  {{.CapitalEntityName}} details = 3;
+}
+
+// Request message for [{{.CapitalEntityName}}Service.Update{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Update{{.CapitalEntityName}}].
+message Update{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The {{.CapitalEntityName}} which replaces the resource on the server.
+  {{.CapitalEntityName}} {{.EntityName}} = 2;
+
+  // Required. The update mask applies to the resource.
+  // For the `FieldMask` definition, see [google.protobuf.FieldMask][google.protobuf.FieldMask].
+  // Updatable fields:
+  //
+  //   * `id`
+  //   * `update_at`
+  //   * `create_at`
+  google.protobuf.FieldMask update_mask = 3;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Update{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Update{{.CapitalEntityName}}].
+message Update{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // response data.
+  {{.CapitalEntityName}} details = 3;
+}
+
+// Request message for [{{.CapitalEntityName}}Service.List{{.CapitalEntityName}}s][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.List{{.CapitalEntityName}}s].
+message List{{.CapitalEntityName}}sRequest {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // common list option.
+  common.v1.CommonOption common_option = 2;
+
+  // common list filter.
+  common.v1.CommonFilter common_filter = 3;
+
+  // Mask specifying which fields to read.
+  google.protobuf.FieldMask read_mask = 4;
+
+  // option filter struct for list {{.CapitalEntityName}}.
+  {{.CapitalEntityName}}OptionFilter option_filter = 5;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.List{{.CapitalEntityName}}s][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.List{{.CapitalEntityName}}s].
+message List{{.CapitalEntityName}}sResponse {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  message Details {
+    // A list of {{.CapitalEntityName}}s that matches the specified filter in the request.
+    repeated {{.CapitalEntityName}} items = 1;
+    // next request.
+    List{{.CapitalEntityName}}sRequest next_request = 2;
+    // total items count of this filter.
+    int32 total_count = 3;
+  }
+  Details details = 3;
+}
+
+// Request message for [{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}].
+message Delete{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The resource name of the {{.CapitalEntityName}} to delete.
+  // Format:
+  // `{{.EntityResourcePattern}}`
+  int64 id = 2;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}].
+message Delete{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // response data.
+  {{.CapitalEntityName}} details = 3;
+}
+
+// Request message for [{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}s][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}s].
+message Delete{{.CapitalEntityName}}sRequest {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // use common filter to delete {{.CapitalEntityName}}
+  common.v1.CommonFilter common_filter = 2;
+
+  // option filter struct for delete {{.CapitalEntityName}} items.
+  {{.CapitalEntityName}}OptionFilter option_filter = 3;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}s][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Delete{{.CapitalEntityName}}s].
+message Delete{{.CapitalEntityName}}sResponse {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // deleted id list.
+  repeated int64 details = 3;
+}
+{{if .HasImportRequest}}// Request message for [{{.CapitalEntityName}}Service.Import{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Import{{.CapitalEntityName}}].
+message Import{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The desired input configs. The contents of all input configs will be
+  // imported in one batch.
+  Import{{.CapitalEntityName}}Config import_config = 2;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Import{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Import{{.CapitalEntityName}}].
+message Import{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // success or fail.
+  bool details = 3;
+}{{end}}
+{{if .HasExportRequest}}// Request message for [{{.CapitalEntityName}}Service.Export{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Export{{.CapitalEntityName}}].
+message Export{{.CapitalEntityName}}Request {
+  // The path of the {{.CapitalEntityName}}'s parent resource, if exists.
+  // Format: `{{.ParentUriPattern}}`
+  string parent = 1;
+
+  // Required. The desired output location.
+  Export{{.CapitalEntityName}}Config export_config = 2;
+}
+
+// Response message for [{{.CapitalEntityName}}Service.Export{{.CapitalEntityName}}][v{{.PackageVersionNo}}.{{.CapitalEntityName}}Service.Export{{.CapitalEntityName}}].
+message Export{{.CapitalEntityName}}Response {
+  // status code.
+  int32 code = 1;
+  // error message.
+  string message = 2;
+  // All of the files that are exported in this export operation.
+  repeated string details = 3;
+}{{end}}
