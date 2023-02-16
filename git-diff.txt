@@ -1,8 +1,3 @@
-golang
 java
 make-template
-protobuf
 python
-rust
-soteria
-toolkits

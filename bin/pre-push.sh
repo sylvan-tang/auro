@@ -1,7 +1,7 @@
 #!/bin/bash
 ROOT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && cd .. && pwd)"
 
-make start-mysql-local
+make local-start-mysql
 
 sonar_sources=""
 
@@ -65,6 +65,7 @@ if [[ "$(docker ps | grep sonarqube)" == "" ]]; then
   sh $ROOT_PATH/bin/start-sonarqube.sh
 fi
 
+set -ex
 sonar-scanner \
   -Dsonar.projectKey=auro \
   -Dsonar.sources=$sonar_sources \
