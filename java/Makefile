@@ -21,6 +21,7 @@ build:
 	@if [ -z "$(DIFF_TARGETS)" ]; then \
 	echo $(MODEL_NAME) skip build!; \
 	else \
+	mvn clean compile && \
 	echo $(MODEL_NAME) build is done!; \
 	fi
 

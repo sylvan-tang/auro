@@ -204,3 +204,13 @@ local-start-mysql:
 	docker service create --name auro-mysql --publish 3306:3306 \
 	    --mount type=volume,source=auro-mysql-data,destination=/var/lib/mysql \
 	    --env MYSQL_ROOT_PASSWORD=my-secret-pw $(DOCKER_REGISTRY)/$(DOCKER_OWNER)/mysql:latest && sleep 10
+
+.PHONY: sonar-scan
+## sonar scan for code
+sonar-scan:
+	find . -type f -name '*.scala' | grep -v ".history" > $(ROOT)/sonar.txt
+	find . -type f -name '*.class' | grep target | grep classes | grep -v assembly | grep -v scala | grep -v "project/target" | grep -v ".history" >> $(ROOT)/sonar.txt
+	find . -type f -name '*.rs' | grep -v ".history" >> $(ROOT)/sonar.txt
+	find . -type f -name '*.py' | grep -v "apis" | grep -v ".venv" | grep -v __pycache__ | grep -v ".history"  >> $(ROOT)/sonar.txt
+	find . -type f -name '*.go' | grep -v "apis" | grep -v ".history"  >> $(ROOT)/sonar.txt
+	$(ROOT)/bin/sonar-scan.sh

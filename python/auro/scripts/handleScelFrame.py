@@ -117,7 +117,6 @@ def CreatDic(sent):
             f = open(filePath, 'w')
             f.write(' ' + wi[0] + ':' + wi[1])
             f.close()
-            None
 
 
 def ONRecognition2(sent, tList=['nt', 'ns', 'nr', 'nz']):
@@ -210,10 +209,7 @@ def ONRecognition3(sent, tList=['nt', 'nr', 'ns', 'nz']):
                 V = len(wDic)
                 if (V + N2) > 0:
                     p = p + (1 + N1) / (V + N2)
-            if p / len(w) > 0:
-                newSent += w + '/' + t + str(p / len(w)) + '  '
-            else:
-                newSent += w + '/' + t + str(p / len(w)) + '  '
+            newSent += w + '/' + t + str(p / len(w)) + '  '
             P += p
         if P > bestP:
             bestP = P
@@ -392,7 +388,6 @@ def MorphemeRoleDic(sent):
             f.write('\n'.join(
                 [ki + ':' + str(wordDic[k][ki]) for ki in wordDic[k].keys()]))
             f.close()
-            None
         else:
             f = open(filePath, 'r')
             text = f.read()

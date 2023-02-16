@@ -1,4 +1,5 @@
 java
 make-template
-protobuf
 python
+rust
+soteria

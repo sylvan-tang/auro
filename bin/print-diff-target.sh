@@ -23,7 +23,7 @@ if [ -f "$ROOT_PATH/git-diff.txt" ]; then
 fi
 for model in $(ls */Makefile); do
   dir_path=$(dirname $model)
-  diff_check=$(eval $diff_command | grep -v "scm_version" | grep -v "Makefile" | grep -v "config.ini" | grep -v "config.toml" | grep $dir_path)
+  diff_check=$(eval $diff_command | grep -v "scm_version" | grep -v "config.ini" | grep -v "config.toml" | grep $dir_path)
   if [[ -z "$diff_check" && "$dir_path" != "make-template" ]]; then
     continue
   fi
@@ -57,7 +57,7 @@ echo "make-template-env" >>"$ROOT_PATH/images-diff.txt"
 
 for dockerfile_name in $(ls dockers/*.dockerfile); do
   file_name=$(basename $dockerfile_name .dockerfile)
-  diff_check=$(eval "$diff_command" | grep -v "scm_version" | grep -v "Makefile" | grep -v "config.ini" | grep -v "config.toml" | grep $file_name)
+  diff_check=$(eval "$diff_command" | grep -v "scm_version" | grep -v "config.ini" | grep -v "config.toml" | grep $file_name)
   if [[ -z "$diff_check" ]]; then
     continue
   fi
