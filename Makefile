@@ -26,7 +26,6 @@ BUILD_PHONIES=$(patsubst %, %/build, $(DIFF_PHONIES))
 FORMAT_PHONIES=$(patsubst %, %/format, $(DIFF_PHONIES))
 UT_PHONIES=$(patsubst %, %/ut, $(DIFF_PHONIES))
 IT_PHONIES=$(patsubst %, %/it, $(DIFF_PHONIES))
-SONAR_SCAN_PHONIES=$(patsubst %, %/sonar-scan, $(DIFF_PHONIES))
 
 .PHONY: $(BUILD_PHONIES)
 ## build commands for each Makefile
@@ -66,16 +65,6 @@ $(IT_PHONIES):
 	echo skip $(@:%=%); \
 	else \
 	make -C $(dir $(ROOT)/$(@:%=%)) it-docker; \
-	fi
-
-.PHONY: $(SONAR_SCAN_PHONIES)
-## sonar scan commands for each Makefile
-$(SONAR_SCAN_PHONIES):
-	@printf "🐋 \033[1;32m===> Running $(@:%=%) ..\033[0m\n"
-	@if [ "$(@:%/sonar-scan=%)" = "$(SUBMODULE_TEMPLATE_NAME)" ]; then \
-	echo skip $(@:%=%); \
-	else \
-	make -C $(dir $(ROOT)/$(@:%=%)) sonar-scan; \
 	fi
 
 .PHONY: $(DEPLOY_PHONIES)
@@ -119,11 +108,6 @@ ut:
 ## integration test command for PHONIES
 it:
 	@make $(IT_PHONIES)
-
-.PHONY: sonar-scan
-## sonar scan command for PHONIES
-sonar-scan:
-	@make $(SONAR_SCAN_PHONIES)
 
 .PHONY: image
 ## build docker image command for PHONIES
