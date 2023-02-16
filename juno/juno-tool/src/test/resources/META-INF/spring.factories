@@ -1,1 +1,0 @@
-org.springframework.context.ApplicationListener=com.sylvan.juno.tool.properties.config.ExtensionYamlLoader

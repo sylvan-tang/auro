@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package echo.v1;
+
+import "google/api/resource.proto";
+import "thirdparty/greeting/chat.proto";
+
+option go_package = "github.com/sylvan/auro/apis/echo/v1;echov1";
+
+message Greeting {
+  option (google.api.resource) = {
+    type: "github.com.sylvan.auro.apis/GreetingEntity"
+    pattern: "echos/greetings/{id}"
+  };
+  // auto increase id.
+  int64 id = 1;
+
+  // Output only. Timestamp when this Dataset was created, convert to local timezone string.
+  string create_at = 2;
+
+  // Output only. Timestamp when this Dataset was last updated, convert to local timezone string.
+  string update_at = 3;
+
+  string greeted = 4;
+
+  thirdparty.greeting.Chat chat = 5;
+}
+
+message GreetingOptionFilter {}
+
+message ImportGreetingConfig {
+  string file_path = 1;
+}
+
+message ExportGreetingConfig {
+  string file_path = 1;
+}

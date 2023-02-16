@@ -1,0 +1,69 @@
+# Servers
+[server]
+namespace = "auro"
+
+[server.interceptors.unary]
+echo = [
+    "errors",
+]
+assoc = [
+    "errors",
+]
+[server.interceptors.stream]
+echo = []
+assoc = []
+
+[server.grpc.echo]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60002
+[server.gateway.echo]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8102
+grpcPort = 60002
+
+[server.grpc.assoc]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60003
+[server.gateway.assoc]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8103
+grpcPort = 60003
+
+# Logger
+[logger]
+Path = "/tmp/log"
+File = "default.log_{Y-m-d}"
+Level = "all"
+StdoutPrint = true
+
+[[database.echo]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/echo"
+createdAt = "create_at"
+debug = true
+
+[[database.assoc]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/assoc"
+createdAt = "create_at"
+debug = true
+
+# GoFrame client
+[gfcli]
+[[gfcli.gen.dao]]
+path = "./pkg/service/echo/db"
+group = "echo"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/echo"
+jsonCase = "snake"
+
+[[gfcli.gen.dao]]
+path = "./pkg/service/assoc/db"
+group = "assoc"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/assoc"
+jsonCase = "snake"

@@ -1,0 +1,137 @@
+# Servers
+[server]
+namespace = "artistml-muses"
+
+[server.interceptors.unary]
+echo = [
+    "errors",
+]
+assoc = [
+    "errors",
+]
+muses = [
+    "errors",
+]
+tag = [
+    "errors",
+]
+[server.interceptors.stream]
+echo = []
+assoc = []
+muses = []
+tag = []
+
+[server.grpc.echo]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60002
+[server.gateway.echo]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8102
+grpcPort = 60002
+
+[server.grpc.assoc]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60003
+[server.gateway.assoc]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8103
+grpcPort = 60003
+
+[server.grpc.muses]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60004
+[server.gateway.muses]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8104
+grpcPort = 60004
+
+[server.grpc.tag]
+name = "grpc-front"
+network = "tcp"
+host = "localhost"
+port = 60005
+[server.gateway.tag]
+name = "gateway"
+scheme = "http"
+host = "localhost"
+port = 8105
+grpcPort = 60005
+
+# Logger
+[logger]
+Path = "/tmp/log"
+File = "default.log_{Y-m-d}"
+Level = "all"
+StdoutPrint = true
+
+[[database.echo]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/echo"
+createdAt = "create_at"
+debug = true
+
+[[database.muses]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/muses"
+createdAt = "create_at"
+debug = true
+
+[[database.tag]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/tag"
+createdAt = "create_at"
+debug = true
+
+[[database.assoc]]
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/assoc"
+createdAt = "create_at"
+debug = true
+
+# GoFrame client
+[gfcli]
+[[gfcli.gen.dao]]
+path = "./pkg/service/echo/db"
+group = "echo"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/echo"
+jsonCase = "snake"
+
+[[gfcli.gen.dao]]
+path = "./pkg/service/muses/db"
+group = "muses"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/muses"
+jsonCase = "snake"
+
+[[gfcli.gen.dao]]
+path = "./pkg/service/tag/db"
+group = "tag"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/tag"
+jsonCase = "snake"
+
+[[gfcli.gen.dao]]
+path = "./pkg/service/assoc/db"
+group = "assoc"
+link = "mysql:root:my-secret-pw@tcp(localhost:3306)/assoc"
+jsonCase = "snake"
+
+# minio
+[minio-server]
+host = "ae8d6c02f67844a099e3eb05f9664e1c-581089970.us-east-2.elb.amazonaws.com"
+grpcPort = 9000
+accessKey = "minio"
+secretKey = "minio123"
+useSSL = false
+pipelineBucket = "pipelines"
+
+[kfp]
+host = "a3aedab2c21b44316861a60871048b28-1693194164.us-east-2.elb.amazonaws.com"
+grpcPort = 8887
+port = 8888

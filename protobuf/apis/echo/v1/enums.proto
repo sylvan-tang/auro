@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package echo.v1;
+
+option go_package = "github.com/sylvan/auro/apis/echo/v1;echov1";

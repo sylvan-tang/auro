@@ -6,7 +6,10 @@
 current_path=$(pwd)
 # shellcheck disable=SC2046
 # shellcheck disable=SC2164
-shell_path=$(cd $(dirname "${BASH_SOURCE[0]}"); pwd )
+shell_path=$(
+  cd $(dirname "${BASH_SOURCE[0]}")
+  pwd
+)
 # shellcheck disable=SC2046
 soteria_path=$(dirname $(dirname "$shell_path"))
 

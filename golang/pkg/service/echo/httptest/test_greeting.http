@@ -1,0 +1,56 @@
+# start server with `make cmd/echo-server-start` before test
+POST http://localhost:8102/v1/echos/greetings
+Content-Type: application/json
+
+{
+    "greeted": "how do you do!",
+    "chat": {
+        "hello": {
+            "name": "sylvan"
+        }
+    }
+}
+
+###
+GET http://localhost:8102/v1/echos/greetings/56
+Content-Type: application/json
+
+###
+PATCH http://localhost:8102/v1/echos/greetings/56
+Content-Type: application/json
+
+{
+    "greeted": "how do you do!",
+    "chat": {
+        "hello": {
+            "name": "Sylvan"
+        }
+    }
+}
+
+### 
+POST http://localhost:8102/v1/echos/greetings/resources
+Content-Type: application/json
+
+{
+    "commonOption": {
+        "page": 1,
+        "size": 10
+    }
+}
+
+###
+DELETE http://localhost:8102/v1/echos/greetings/234
+Content-Type: application/json
+
+###
+PATCH http://localhost:8102/v1/echos/greetings
+Content-Type: application/json
+
+{
+    "commonFilter": {
+        "columnName": "create_at",
+        "highTime": "2022-11-29 18:12:12",
+        "lowTime": "2022-11-22 17:12:12"
+    }
+}

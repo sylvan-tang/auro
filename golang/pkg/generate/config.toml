@@ -1,0 +1,22 @@
+# interceptor package for go list, rpc_gen.go will import all sub-packages in this package.
+interceptorPkg = "github.com/sylvan/auro/pkg/interceptor"
+templates = ["gateway", "rpc", "pkgname"]
+
+[[services]]
+name = "echo"
+path = "service/echo"
+[[services.protos]]
+protoPkg = "github.com/sylvan/auro/apis"
+pkg = "echo"
+version = "v1"
+rpcs = ["GreetingService"]
+
+
+[[services]]
+name = "assoc"
+path = "service/assoc"
+[[services.protos]]
+protoPkg = "github.com/sylvan/auro/apis"
+pkg = "assoc"
+version = "v1"
+rpcs = ["AssocService"]

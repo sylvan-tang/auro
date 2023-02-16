@@ -1,0 +1,3 @@
+# please find the grpc port and http port from config/config.toml
+echo-server#--publish 60002:60002 --publish 8102:8102
+assoc-server#--publish 60003:60003 --publish 8103:8103

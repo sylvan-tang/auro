@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationListener=com.sylvan.auro.tool.properties.config.ExtensionYamlLoader
