@@ -2,7 +2,7 @@ certifi==2021.5.30
 grpcio-tools==1.46.0
 grpcio==1.46.0
 mypy-protobuf==3.2.0
-protobuf==3.20.1
+protobuf==3.20.2
 setuptools-git-versioning==1.8.1
 six==1.16.0
 twine==3.8.0
