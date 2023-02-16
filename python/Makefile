@@ -117,15 +117,6 @@ it: build
 	# pdm run coverage xml
 	@printf "🐍 \033[1;32m===> Running integration testing for $(PROJECT_NAME) done.\033[0m\n"
 
-.PHONY: sonar-scan
-## sonar scan command 
-sonar-scan:
-	@if [ -z "$(DIFF_TARGETS)" ]; then \
-	echo $(MODEL_NAME) skip sonar-scan!; \
-	else \
-	echo $(MODEL_NAME) sonar-scan is done!; \
-	fi
-
 .PHONY: package
 ## pacakge command
 package:

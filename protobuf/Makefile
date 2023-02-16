@@ -90,15 +90,6 @@ it:
 	echo $(MODEL_NAME) it is done!; \
 	fi
 
-.PHONY: sonar-scan
-## sonar scan command 
-sonar-scan:
-	@if [ -z "$(DIFF_TARGETS)" ]; then \
-	echo $(MODEL_NAME) skip sonar-scan!; \
-	else \
-	echo $(MODEL_NAME) sonar-scan is done!; \
-	fi
-
 ###############################################################################
 # docker commands                                                             #
 ###############################################################################
