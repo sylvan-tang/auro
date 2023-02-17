@@ -1,5 +1,4 @@
 java
 make-template
 python
-rust
-soteria
+scala

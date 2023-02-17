@@ -5,5 +5,5 @@ java-env
 protobuf-env
 python-env
 rust-env
-soteria-env
+scala-env
 toolkits-env
