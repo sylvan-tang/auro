@@ -25,7 +25,7 @@ init:
 ## clean go generated files
 clean:
 	@printf "🐋 \033[1;32m===> Cleaning generated files...\033[0m\n"
-	rm -rf $(MODEL_PATH)/apis-doc $(MODEL_PATH)/go $(PYPKG_PATH)/apis
+	rm -rf $(MODEL_PATH)/apis-doc $(ROOT)/golang/apis $(PYPKG_PATH)/apis $(ROOT)/rust/src/apis
 	
 .PHONY: generate
 ## go genrate proto

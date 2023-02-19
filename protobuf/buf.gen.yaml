@@ -32,3 +32,12 @@ plugins:
   # API documentation plugins
   # - name: openapiv2
   #   out: ./apis-doc
+
+  # Rust plugin
+  - remote: buf.build/prost/plugins/prost:v0.2.1-1
+    out: ../rust/src/apis
+    opt:
+      - bytes=./apis
+      - compile_well_known_types
+      - extern_path=.google.protobuf=::pbjson_types
+      - file_descriptor_set

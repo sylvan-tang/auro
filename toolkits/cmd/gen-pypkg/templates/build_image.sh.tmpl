@@ -60,7 +60,7 @@ if [ -n "$REGISTRY" ]; then
   fi
 
   if [[ -z "${NOPUSH}" ]]; then
-    docker push "${IMAGE}"
+    echo docker push "${IMAGE}"
     echo "${IMAGE} pushed to remote"
   fi
 fi

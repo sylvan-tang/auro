@@ -70,4 +70,11 @@ RUN wget -O- -cqt5 https://go.dev/dl/go1.18.2.linux-amd64.tar.gz | tar -xz
 ENV GOPATH=/go
 ENV PATH=/go/bin:/usr/local/go/bin:$PATH
 
+# install rust and cargo
+WORKDIR /tmp
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
+    && chmod +x /tmp/rustup.sh \
+    && /tmp/rustup.sh -y
+ENV PATH=/root/.cargo/bin:$PATH
+
 WORKDIR /auro
