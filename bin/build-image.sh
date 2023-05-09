@@ -45,7 +45,7 @@ eval $build_command
 while IFS="," read -r registry owner tag user secret_path; do
   if [ "${push_switch}" = "Y" ]; then
     cat ${secret_path} | docker login --username ${user} --password-stdin ${registry}
-    docker push ${registry}/${owner}/${image_name}:${tag}
+    echo docker push ${registry}/${owner}/${image_name}:${tag}
   else
     echo skip push ${registry}/${owner}/${image_name}:${tag}
   fi
