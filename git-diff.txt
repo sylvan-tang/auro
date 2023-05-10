@@ -1,6 +1,3 @@
-golang
 make-template
 protobuf
 python
-rust
-toolkits
