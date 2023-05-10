@@ -131,7 +131,6 @@
 ./rust/src/apis/assoc.v1.rs
 ./rust/src/apis/common.v1.rs
 ./rust/src/main.rs
-./protobuf/build.rs
 ./bin/generate_ci_workflow.py
 ./python/tests/integration_test/test_gitkeep.py
 ./python/tests/integration_test/clients/test_assoc_client.py
