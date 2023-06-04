@@ -88,6 +88,7 @@ DOCKER_PHONIES := $(patsubst %, %-docker, $(TARGETS))
 ## run make commands in docker
 $(DOCKER_PHONIES):
 	@printf "🐋 \033[1;32m===> Running $(@:%-docker=%) in docker...\033[0m\n"
+	make -C $(ROOT) $(MODEL_NAME)-env-all-image
 	docker run $(DOCKER_NETWORK) --rm \
 	    --volume $(ROOT):/auro \
 	    --volume $(GO_CACHE_PATH)/pkg:/go/pkg \

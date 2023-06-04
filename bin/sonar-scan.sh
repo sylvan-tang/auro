@@ -34,6 +34,6 @@ sonar-scanner \
   -Dsonar.projectKey=auro \
   -Dsonar.sources=$sonar_sources \
   -Dsonar.host.url=http://localhost:10318 \
-  -Dsonar.login=sqp_032fab3858ada38fbd441fd9849e74486e7877d5
+  -Dsonar.login=sqp_7db8dfea1a6c780ce5836ac1643d05828611f26e
 
 echo "sonar scanning end."
