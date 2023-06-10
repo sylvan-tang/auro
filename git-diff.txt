@@ -1,3 +1,8 @@
+golang
+java
 make-template
 protobuf
 python
+rust
+scala
+toolkits
